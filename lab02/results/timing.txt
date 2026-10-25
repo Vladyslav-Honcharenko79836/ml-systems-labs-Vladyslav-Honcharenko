@@ -1,0 +1,6 @@
+AMD64 Family 23 Model 8 Stepping 2, AuthenticAMD | 16 logical CPUs | numpy 1.26.4 | median of 100 runs after 10 warm-up
+  W batch  fwd med us  bwd med us  bwd/fwd  fwd MFLOP  bwd MFLOP FLOP ratio fwd mm share bwd mm share
+ 16    32        43.9        50.4     1.15      0.092      0.119       1.29          31%          41%
+ 16  1257       522.2       474.2     0.91      3.620      4.666       1.29          40%          58%
+ 64    32        74.2        98.9     1.33      0.565      0.868       1.54          50%          61%
+ 64  1257      2104.0      1940.0     0.92     22.204     34.110       1.54          22%          43%
