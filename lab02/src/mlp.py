@@ -13,14 +13,21 @@ INIT_STD = 0.01
 PARAM_NAMES = ("W1", "b1", "W2", "b2", "W3", "b3")
 
 
-def init_params(width, rng, std=INIT_STD):
-    """Weights ~ N(0, std) (std = 0.01), biases = 0."""
+def init_params(width, rng, std=INIT_STD, scheme="normal"):
+    """Weights ~ N(0, std) (std = 0.01), biases = 0.
+
+    scheme="he" (control experiment only) uses std = sqrt(2 / fan_in) per layer instead.
+    """
+    def w(fan_in, fan_out):
+        s = np.sqrt(2.0 / fan_in) if scheme == "he" else std
+        return rng.normal(0.0, s, size=(fan_in, fan_out))
+
     return {
-        "W1": rng.normal(0.0, std, size=(N_IN, width)),
+        "W1": w(N_IN, width),
         "b1": np.zeros(width),
-        "W2": rng.normal(0.0, std, size=(width, width)),
+        "W2": w(width, width),
         "b2": np.zeros(width),
-        "W3": rng.normal(0.0, std, size=(width, N_OUT)),
+        "W3": w(width, N_OUT),
         "b3": np.zeros(N_OUT),
     }
 
