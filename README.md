@@ -5,6 +5,7 @@ Individual lab work for *Introduction to Machine Learning Systems* (V. J. Reddi)
 | Folder  | Topic                                        |
 |---------|----------------------------------------------|
 | `lab01` | Environment and first system measurements   |
+| `lab02` | A neural network from scratch (NumPy)       |
 
 ## Environment
 
