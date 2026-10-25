@@ -1,0 +1,17 @@
+W = 16
+  W1: shape (64, 16)   count  1024  mean -0.00029  std 0.00983
+  b1: shape (16,)      count    16  mean +0.00000  std 0.00000
+  W2: shape (16, 16)   count   256  mean +0.00012  std 0.00991
+  b2: shape (16,)      count    16  mean +0.00000  std 0.00000
+  W3: shape (16, 10)   count   160  mean -0.00026  std 0.01098
+  b3: shape (10,)      count    10  mean +0.00000  std 0.00000
+  total parameters: 1482  (11856 bytes as float64)
+W = 64
+  W1: shape (64, 64)   count  4096  mean -0.00019  std 0.00997
+  b1: shape (64,)      count    64  mean +0.00000  std 0.00000
+  W2: shape (64, 64)   count  4096  mean +0.00004  std 0.01009
+  b2: shape (64,)      count    64  mean +0.00000  std 0.00000
+  W3: shape (64, 10)   count   640  mean +0.00022  std 0.00957
+  b3: shape (10,)      count    10  mean +0.00000  std 0.00000
+  total parameters: 8970  (71760 bytes as float64)
+init: weights ~ N(0, 0.01) (std), biases = 0
