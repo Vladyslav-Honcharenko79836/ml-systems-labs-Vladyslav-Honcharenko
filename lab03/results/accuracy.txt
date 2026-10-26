@@ -1,0 +1,5 @@
+Adam lr 0.001, batch 128, 5 epochs, seed 42, CPU threads 8
+model      params   val acc  test acc  test loss  train time s
+MLP        235,146   0.8826    0.8776     0.3401          78.1
+CNN         20,490   0.8974    0.8921     0.2980         107.9
+Attention   71,818   0.8664    0.8595     0.3867         122.6
