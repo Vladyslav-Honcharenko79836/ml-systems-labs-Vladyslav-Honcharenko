@@ -1,0 +1,4 @@
+model,params,test_acc,flops_per_image,macs_per_weight,weight_kb_fp32,latency_b1_ms,latency_b128_ms,per_image_b128_ms,batching_speedup,gflops_b1,gflops_b128
+MLP,235146,0.8776,469504,1.0,918.5,0.1185,0.58,0.00453,26.2,3.96,103.6
+CNN,20490,0.8921,2063488,50.4,80.0,0.3554,6.9636,0.0544,6.5,5.81,37.9
+Attention,71818,0.8595,2329856,16.2,280.5,0.8689,6.1457,0.04801,18.1,2.68,48.5
