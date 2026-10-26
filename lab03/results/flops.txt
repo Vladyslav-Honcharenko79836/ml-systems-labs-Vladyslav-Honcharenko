@@ -1,0 +1,110 @@
+== Hand-calculated FLOPs, one layer of each type (batch 1) ==
+Linear  fc1 784->256:  2*784*256 = 401,408
+Conv2d  conv2 3x3 16->32 @14x14:  2*3*3*16*32*14*14 = 1,806,336
+Attention  one encoder layer, seq=16, d_model=64, d_ff=128:
+    QKV projections  2*seq*d*3d        393,216
+    scores QK^T      2*seq^2*d          32,768
+    softmax(.) x V   2*seq^2*d          32,768
+    out projection   2*seq*d*d         131,072
+    FFN up           2*seq*d*d_ff      262,144
+    FFN down         2*seq*d_ff*d      262,144
+    total                            1,114,112
+
+== MLP ==
+hand, per layer (FLOPs):
+    fc1 Linear 784->256                  401,408
+    fc2 Linear 256->128                   65,536
+    fc3 Linear 128->10                     2,560
+    total                                469,504
+thop.profile, per leaf module (MACs, x2 = FLOPs), default settings:
+    net.0                                                0  ->           0
+    net.1                                          200,704  ->     401,408
+    net.2                                                0  ->           0
+    net.3                                           32,768  ->      65,536
+    net.4                                                0  ->           0
+    net.5                                            1,280  ->       2,560
+hand_flops                             469,504   (1.000 x hand)
+thop_flops                             469,504   (1.000 x hand)
+thop_flops_no_fastpath                 469,504   (1.000 x hand)
+thop_flops_no_fastpath_mha_rule        469,504   (1.000 x hand)
+flopcounter_flops                      469,504   (1.000 x hand)
+flopcounter_flops_no_fastpath          469,504   (1.000 x hand)
+
+== CNN ==
+hand, per layer (FLOPs):
+    conv1 3x3 1->16 @28x28               225,792
+    conv2 3x3 16->32 @14x14            1,806,336
+    fc Linear 1568->10                    31,360
+    total                              2,063,488
+thop.profile, per leaf module (MACs, x2 = FLOPs), default settings:
+    net.0                                          112,896  ->     225,792
+    net.1                                                0  ->           0
+    net.2                                                0  ->           0
+    net.3                                          903,168  ->   1,806,336
+    net.4                                                0  ->           0
+    net.5                                                0  ->           0
+    net.6                                                0  ->           0
+    net.7                                           15,680  ->      31,360
+hand_flops                           2,063,488   (1.000 x hand)
+thop_flops                           2,063,488   (1.000 x hand)
+thop_flops_no_fastpath               2,063,488   (1.000 x hand)
+thop_flops_no_fastpath_mha_rule      2,063,488   (1.000 x hand)
+flopcounter_flops                    2,063,488   (1.000 x hand)
+flopcounter_flops_no_fastpath        2,063,488   (1.000 x hand)
+
+== Attention ==
+hand, per layer (FLOPs):
+    patch proj Linear 49->64 x16         100,352
+    encoder layer 1                    1,114,112
+    encoder layer 2                    1,114,112
+    head Linear 64->10                     1,280
+    total                              2,329,856
+thop.profile, per leaf module (MACs, x2 = FLOPs), default settings:
+    proj                                            50,176  ->     100,352
+    encoder.layers.0.self_attn.out_proj                  0  ->           0
+    encoder.layers.0.linear1                             0  ->           0
+    encoder.layers.0.dropout                             0  ->           0
+    encoder.layers.0.linear2                             0  ->           0
+    encoder.layers.0.norm1                               0  ->           0
+    encoder.layers.0.norm2                               0  ->           0
+    encoder.layers.0.dropout1                            0  ->           0
+    encoder.layers.0.dropout2                            0  ->           0
+    encoder.layers.1.self_attn.out_proj                  0  ->           0
+    encoder.layers.1.linear1                             0  ->           0
+    encoder.layers.1.dropout                             0  ->           0
+    encoder.layers.1.linear2                             0  ->           0
+    encoder.layers.1.norm1                               0  ->           0
+    encoder.layers.1.norm2                               0  ->           0
+    encoder.layers.1.dropout1                            0  ->           0
+    encoder.layers.1.dropout2                            0  ->           0
+    head                                               640  ->       1,280
+thop.profile, fast path off + MultiheadAttention rule (MACs, x2 = FLOPs):
+    proj                                            50,176  ->     100,352
+    encoder.layers.0.self_attn                     294,912  ->     589,824
+    encoder.layers.0.linear1                       131,072  ->     262,144
+    encoder.layers.0.dropout                             0  ->           0
+    encoder.layers.0.linear2                       131,072  ->     262,144
+    encoder.layers.0.norm1                           4,096  ->       8,192
+    encoder.layers.0.norm2                           4,096  ->       8,192
+    encoder.layers.0.dropout1                            0  ->           0
+    encoder.layers.0.dropout2                            0  ->           0
+    encoder.layers.1.self_attn                     294,912  ->     589,824
+    encoder.layers.1.linear1                       131,072  ->     262,144
+    encoder.layers.1.dropout                             0  ->           0
+    encoder.layers.1.linear2                       131,072  ->     262,144
+    encoder.layers.1.norm1                           4,096  ->       8,192
+    encoder.layers.1.norm2                           4,096  ->       8,192
+    encoder.layers.1.dropout1                            0  ->           0
+    encoder.layers.1.dropout2                            0  ->           0
+    head                                               640  ->       1,280
+hand_flops                           2,329,856   (1.000 x hand)
+thop_flops                             101,632   (0.044 x hand)
+thop_flops_no_fastpath               1,182,976   (0.508 x hand)
+thop_flops_no_fastpath_mha_rule      2,362,624   (1.014 x hand)
+flopcounter_flops                      101,632   (0.044 x hand)
+flopcounter_flops_no_fastpath        2,198,784   (0.944 x hand)
+
+model      hand FLOPs   thop x2 (default)   ratio
+MLP           469,504             469,504   1.000
+CNN         2,063,488           2,063,488   1.000
+Attention   2,329,856             101,632   0.044

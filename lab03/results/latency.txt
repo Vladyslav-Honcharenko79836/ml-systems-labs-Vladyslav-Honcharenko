@@ -1,0 +1,11 @@
+CPU: AMD64 Family 23 Model 8 Stepping 2, AuthenticAMD | logical cores 16 | torch 2.3.1+cpu | threads 8 | warm-up 10 | passes 3
+
+model      batch  runs  median ms  p10 ms  p90 ms  per-image ms  img/s     pass medians ms
+MLP            1   100     0.1185  0.1169  0.1218       0.11855    8435    0.1174 0.1223 0.1185
+MLP          128    20     0.5800  0.5618  0.6432       0.00453  220709    0.5675 0.5955 0.5800
+CNN            1   100     0.3554  0.3418  0.3995       0.35535    2814    0.3487 0.4262 0.3554
+CNN          128    20     6.9636  6.4240  8.2754       0.05440   18381    6.5500 6.6406 6.9636
+Attention      1   100     0.8689  0.7792  1.0393       0.86890    1151    0.7993 0.7991 0.8689
+Attention    128    20     6.1457  5.8076  6.8988       0.04801   20828    6.3563 6.4043 6.1457
+
+Reported median/p10/p90 come from the last pass; 'pass medians' shows all passes.

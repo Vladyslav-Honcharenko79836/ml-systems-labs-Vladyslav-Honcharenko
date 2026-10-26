@@ -1,0 +1,4 @@
+model,hand_flops,thop_flops,thop_flops_no_fastpath,thop_flops_no_fastpath_mha_rule,flopcounter_flops,flopcounter_flops_no_fastpath
+MLP,469504,469504,469504,469504,469504,469504
+CNN,2063488,2063488,2063488,2063488,2063488,2063488
+Attention,2329856,101632,1182976,2362624,101632,2198784
