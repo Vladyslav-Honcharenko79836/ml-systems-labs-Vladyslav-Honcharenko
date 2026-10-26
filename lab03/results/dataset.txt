@@ -1,0 +1,16 @@
+train 55000  val 5000  test 10000
+train/val index overlap: 0
+batches per epoch: train 430  val 40  test 79
+one batch: x (128, 1, 28, 28) torch.float32  y (128,) torch.int64
+normalized pixels (10k train images): mean 0.0026  std 1.0014  min -0.8102  max 2.0227
+class        name  train   val  test
+    0  T-shirt/top   5452   548  1000
+    1      Trouser   5490   510  1000
+    2     Pullover   5473   527  1000
+    3        Dress   5524   476  1000
+    4         Coat   5490   510  1000
+    5       Sandal   5491   509  1000
+    6        Shirt   5510   490  1000
+    7      Sneaker   5555   445  1000
+    8          Bag   5508   492  1000
+    9   Ankle boot   5507   493  1000
