@@ -1,0 +1,44 @@
+(a) duplicate-conflict audit (14 features identical, NaN = NaN), whole dataset
+  rows whose 14 features occur more than once: 111 in 54 groups
+  groups with a single label: 49
+  groups with CONFLICTING labels: 5  (10 rows; {'train': 7, 'test': 3})
+  conflict rate: 0.0205% of all rows
+
+ group  raw_row split  age workclass education     marital-status       occupation    sex  hours-per-week native-country income
+     0    45787  test   34   Private   Masters      Never-married  Exec-managerial Female              50  United-States  <=50K
+     0     2373 train   34   Private   Masters      Never-married  Exec-managerial Female              50  United-States   >50K
+     1    17129 train   39   Private Bachelors Married-civ-spouse     Craft-repair   Male              40  United-States  <=50K
+     1    39042 train   39   Private Bachelors Married-civ-spouse     Craft-repair   Male              40  United-States   >50K
+     2    11692  test   41   Private   HS-grad Married-civ-spouse Transport-moving   Male              40  United-States  <=50K
+     2    16161 train   41   Private   HS-grad Married-civ-spouse Transport-moving   Male              40  United-States   >50K
+     3    27210 train   46   Private   HS-grad Married-civ-spouse Transport-moving   Male              40  United-States  <=50K
+     3    15802 train   46   Private   HS-grad Married-civ-spouse Transport-moving   Male              40  United-States   >50K
+     4     1781 train   46   Private   HS-grad Married-civ-spouse     Craft-repair   Male              40  United-States  <=50K
+     4    32964  test   46   Private   HS-grad Married-civ-spouse     Craft-repair   Male              40  United-States   >50K
+  conflict groups spread across train and test: 3
+
+(b) 50 random rows (seed 42) checked against the data dictionary
+  sample >50K share 0.20  (dataset 0.24)
+  rule                                                kind         sample  all rows
+  education-num != dictionary code                    impossible        0         0
+  Husband but not Male                                impossible        0         1
+  Wife but not Female                                 impossible        0         3
+  Husband/Wife but not married                        impossible        0         0
+  capital-gain and capital-loss both > 0              impossible        0         0
+  Never-worked with an occupation                     impossible        0         0
+  Never-worked but hours-per-week > 0                 impossible        0        10
+  degree too young for its length                     suspicious        0         4
+  capital-gain = 99999 (top-code)                     suspicious        0       244
+  hours-per-week = 99 (top-code)                      suspicious        0       137
+  age = 90 (top-code)                                 suspicious        0        55
+  workclass and occupation missing, hours > 0         suspicious        2      2799
+  married but Own-child / Other-relative              suspicious        2       346
+  rows with any impossible value: sample 0  all 14
+  rows with any flag: sample 4  all 3544
+
+flagged rows in the sample:
+ raw_row  age    education   relationship  sex        workclass       occupation  capital-gain  capital-loss  hours-per-week income                                  rule_flags
+   23881   25      HS-grad      Own-child Male          Private Transport-moving             0             0              40  <=50K      married but Own-child / Other-relative
+   21063   67    Bachelors        Husband Male              NaN              NaN          9386             0              60   >50K workclass and occupation missing, hours > 0
+   18957   62 Some-college        Husband Male              NaN              NaN             0             0              24  <=50K workclass and occupation missing, hours > 0
+   47649   27 Some-college Other-relative Male Self-emp-not-inc Transport-moving             0             0              50   >50K      married but Own-child / Other-relative
