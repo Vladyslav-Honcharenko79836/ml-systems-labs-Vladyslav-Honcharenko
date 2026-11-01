@@ -42,9 +42,26 @@ class PercentileClipper(BaseEstimator, TransformerMixin):
         return self.feature_names_in_ if input_features is None else np.asarray(input_features, dtype=object)
 
 
-def build_preprocessor(numeric, categorical, cfg):
-    """Raw feature frame -> clean feature frame: '?' -> NaN, impute (median / mode), clip to percentiles."""
+DERIVED = {
+    "capital_net": lambda X: X["capital-gain"] - X["capital-loss"],
+    "hours_per_age": lambda X: X["hours-per-week"] / (X["age"] - 16),  # age >= 17, so never / 0
+}
+
+
+def add_derived(X, names):
+    """Derived features, computed row by row from already imputed and clipped columns (nothing is fitted)."""
+    return X.assign(**{n: DERIVED[n](X) for n in names})
+
+
+def derived_names_out(transformer, input_features):
+    return np.asarray(list(input_features) + list(transformer.kw_args["names"]), dtype=object)
+
+
+def build_preprocessor(numeric, categorical, cfg, derived=None):
+    """Raw feature frame -> clean feature frame: '?' -> NaN, impute (median / mode), clip to
+    percentiles, add derived features. `derived` overrides cfg['features']['derived'] (e.g. [])."""
     pp = cfg["preprocessing"]
+    derived = cfg["features"]["derived"] if derived is None else derived
     impute = ColumnTransformer(
         [("num", SimpleImputer(strategy=pp["numeric_impute"]), numeric),
          ("cat", SimpleImputer(strategy=pp["categorical_impute"]), categorical)],
@@ -55,4 +72,7 @@ def build_preprocessor(numeric, categorical, cfg):
         ("impute", impute),
         ("clip", PercentileClipper(numeric, tuple(pp["clip_percentiles"]))),
     ]
+    if derived:
+        steps.append(("derive", FunctionTransformer(add_derived, kw_args={"names": list(derived)},
+                                                    feature_names_out=derived_names_out)))
     return Pipeline(steps).set_output(transform="pandas")

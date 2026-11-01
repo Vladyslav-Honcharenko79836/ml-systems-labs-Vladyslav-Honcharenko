@@ -18,21 +18,28 @@ def split(df, cfg):
                             stratify=y if cfg["split"]["stratify"] else None)
 
 
+def load_split(cfg):
+    """Raw train (exact duplicates dropped) and raw test (untouched). Shared by every later step."""
+    df = load_named(cfg)
+    train_raw, test_raw = split(df, cfg)
+    if cfg["preprocessing"]["drop_train_duplicates"]:
+        train_raw = train_raw[~train_raw.duplicated(keep="first")]
+    return df, train_raw, test_raw
+
+
 def run(cfg):
     target = cfg["target"]["column"]
     feats, num, cat = feature_columns(cfg), numeric_columns(cfg), categorical_columns(cfg)
-    df = load_named(cfg)
-    train_raw, test_raw = split(df, cfg)
-    lines = [f"split: train {len(train_raw)}  test {len(test_raw)}  "
+    df, train_raw, test_raw = load_split(cfg)
+    train_before_dedup = split(df, cfg)[0]
+    n_before = len(train_before_dedup)
+    lines = [f"split: train {n_before}  test {len(test_raw)}  "
              f"(test_size {cfg['split']['test_size']}, stratified, seed {cfg['seed']})",
              f"train/test index overlap: {len(set(train_raw.index) & set(test_raw.index))}"]
-    for name, part in [("full", df), ("train", train_raw), ("test", test_raw)]:
+    for name, part in [("full", df), ("train", train_before_dedup), ("test", test_raw)]:
         lines.append(f"  {name:<5} {target} >50K share {(part[target] == cfg['target']['positive']).mean():.4f}")
 
-    # Duplicates: exact (all 15 columns) duplicates dropped from train only.
-    n_before = len(train_raw)
-    if cfg["preprocessing"]["drop_train_duplicates"]:
-        train_raw = train_raw[~train_raw.duplicated(keep="first")]
+    # Duplicates: exact (all 15 columns) duplicates dropped from train only (in load_split).
     test_dups = int(test_raw.duplicated(keep="first").sum())
     cross = test_raw.merge(train_raw.drop_duplicates(), on=list(test_raw.columns), how="inner")
     lines += [

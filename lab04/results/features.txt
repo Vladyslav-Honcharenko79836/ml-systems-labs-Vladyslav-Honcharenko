@@ -1,0 +1,17 @@
+train 34165 (after dedup)  test 14653  positive class '>50K'
+model: clean (fit on train) -> StandardScaler(numeric) + OneHotEncoder(categorical) -> LogisticRegression(C=1.0, max_iter=5000)
+majority-class baseline on test: accuracy 0.7607  F1 0.0000
+
+          variant  n_numeric  test_accuracy  test_f1  cv_accuracy_mean  cv_accuracy_std  cv_f1_mean  cv_f1_std  cv_paired_d_accuracy  cv_paired_d_f1  cv_paired_d_f1_std folds_f1_better  coef_capital_net  coef_hours_per_age
+  without derived          6         0.8540   0.6601            0.8507           0.0037      0.6552     0.0118                0.0000          0.0000              0.0000             0/5               NaN                 NaN
+    + capital_net          7         0.8542   0.6610            0.8508           0.0040      0.6554     0.0124                0.0001          0.0002              0.0011             2/5            0.4044                 NaN
+  + hours_per_age          7         0.8576   0.6694            0.8527           0.0044      0.6615     0.0126                0.0020          0.0063              0.0031             5/5               NaN             -1.7806
+with both derived          8         0.8578   0.6696            0.8528           0.0046      0.6618     0.0129                0.0021          0.0065              0.0034             5/5            0.4095             -1.7829
+cv_paired_d_*: mean over the 5 folds of (variant - without derived) on the same fold
+
+derived features on train (computed after imputation and clipping):
+                  count    mean      std       min   25%   50%   75%       max
+capital_net   34165.000 534.452 2542.137 -1980.000 0.000 0.000 0.000 15024.000
+hours_per_age 34165.000   3.100    3.541     0.138 1.290 2.000 3.478    50.000
+
+correlation on train: corr(capital_net, capital-gain) 0.988; capital_net is an exact linear combination of two existing inputs
