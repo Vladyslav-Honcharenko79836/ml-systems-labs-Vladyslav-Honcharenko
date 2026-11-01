@@ -1,0 +1,39 @@
+split: train 34189  test 14653  (test_size 0.3, stratified, seed 42)
+train/test index overlap: 0
+  full  income >50K share 0.2393
+  train income >50K share 0.2393
+  test  income >50K share 0.2393
+train exact duplicates dropped: 24  -> train 34165
+test exact duplicates kept (test untouched): 5  -> test 14653
+test rows identical to a train row (all 15 columns): 24
+
+imputation values (fitted on train) vs the same statistic on full data:
+  age              median train         37   full         37
+  fnlwgt           median train     178272   full     178144
+  education-num    median train         10   full         10
+  capital-gain     median train          0   full          0
+  capital-loss     median train          0   full          0
+  hours-per-week   median train         40   full         40
+  workclass        mode   train Private            full Private            filled train 1923  test 873
+  education        mode   train HS-grad            full HS-grad            filled train 0  test 0
+  marital-status   mode   train Married-civ-spouse full Married-civ-spouse filled train 0  test 0
+  occupation       mode   train Prof-specialty     full Prof-specialty     filled train 1933  test 873
+  relationship     mode   train Husband            full Husband            filled train 0  test 0
+  race             mode   train White              full White              filled train 0  test 0
+  sex              mode   train Male               full Male               filled train 0  test 0
+  native-country   mode   train United-States      full United-States      filled train 590  test 267
+
+clipping bounds = train percentiles [1, 99]; values clipped (low / high):
+  column                  p1       p99  train low   high  test low   high
+  age                     17        74          0    302         0    143
+  fnlwgt             27035.2    509629        342    341       127    145
+  education-num            3        16        240      0        88      0
+  capital-gain             0     15024          0    255         0    136
+  capital-loss             0      1980          0    340         0    151
+  hours-per-week           8        80        311    226       144     92
+
+missing after transform: train 0  test 0
+output columns (14): ['age', 'fnlwgt', 'education-num', 'capital-gain', 'capital-loss', 'hours-per-week', 'workclass', 'education', 'marital-status', 'occupation', 'relationship', 'race', 'sex', 'native-country']
+saved preprocessor.joblib; reloaded transform of test identical: OK
+processed train: (34165, 16)  content sha256 75c6174f375d8eeb...
+processed test: (14653, 16)  content sha256 0bc3bf03c3643f3c...
