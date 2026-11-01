@@ -1,0 +1,350 @@
+{
+  "rows": 48842,
+  "columns": 15,
+  "checks": [
+    {
+      "check": "column names",
+      "column": "income",
+      "violations": 1,
+      "status": "WARN",
+      "detail": "'income' is called 'class' in the source; renamed in a copy (values are identical, raw snapshot untouched)"
+    },
+    {
+      "check": "column set",
+      "column": "*",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "15 columns as in schema"
+    },
+    {
+      "check": "column order",
+      "column": "*",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "same order as schema"
+    },
+    {
+      "check": "type int",
+      "column": "age",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "dtype int64"
+    },
+    {
+      "check": "type category",
+      "column": "workclass",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "dtype category"
+    },
+    {
+      "check": "type int",
+      "column": "fnlwgt",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "dtype int64"
+    },
+    {
+      "check": "type category",
+      "column": "education",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "dtype category"
+    },
+    {
+      "check": "type int",
+      "column": "education-num",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "dtype int64"
+    },
+    {
+      "check": "type category",
+      "column": "marital-status",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "dtype category"
+    },
+    {
+      "check": "type category",
+      "column": "occupation",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "dtype category"
+    },
+    {
+      "check": "type category",
+      "column": "relationship",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "dtype category"
+    },
+    {
+      "check": "type category",
+      "column": "race",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "dtype category"
+    },
+    {
+      "check": "type category",
+      "column": "sex",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "dtype category"
+    },
+    {
+      "check": "type int",
+      "column": "capital-gain",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "dtype int64"
+    },
+    {
+      "check": "type int",
+      "column": "capital-loss",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "dtype int64"
+    },
+    {
+      "check": "type int",
+      "column": "hours-per-week",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "dtype int64"
+    },
+    {
+      "check": "type category",
+      "column": "native-country",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "dtype category"
+    },
+    {
+      "check": "type category",
+      "column": "income",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "dtype category"
+    },
+    {
+      "check": "range",
+      "column": "age",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "[17, 90], observed [17, 90]"
+    },
+    {
+      "check": "range",
+      "column": "hours-per-week",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "[1, 99], observed [1, 99]"
+    },
+    {
+      "check": "range",
+      "column": "capital-gain",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "[0, 99999], observed [0, 99999]"
+    },
+    {
+      "check": "range",
+      "column": "capital-loss",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "[0, 4356], observed [0, 4356]"
+    },
+    {
+      "check": "missing not allowed",
+      "column": "age",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "numeric/target column must be complete"
+    },
+    {
+      "check": "missing ('?')",
+      "column": "workclass",
+      "violations": 0,
+      "status": "INFO",
+      "detail": "2799 missing (5.73%): 0 literal '?', 2799 NaN (parsed from '?') -- allowed by null policy"
+    },
+    {
+      "check": "missing not allowed",
+      "column": "fnlwgt",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "numeric/target column must be complete"
+    },
+    {
+      "check": "missing ('?')",
+      "column": "education",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "0 missing (0.00%): 0 literal '?', 0 NaN (parsed from '?') -- allowed by null policy"
+    },
+    {
+      "check": "missing not allowed",
+      "column": "education-num",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "numeric/target column must be complete"
+    },
+    {
+      "check": "missing ('?')",
+      "column": "marital-status",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "0 missing (0.00%): 0 literal '?', 0 NaN (parsed from '?') -- allowed by null policy"
+    },
+    {
+      "check": "missing ('?')",
+      "column": "occupation",
+      "violations": 0,
+      "status": "INFO",
+      "detail": "2809 missing (5.75%): 0 literal '?', 2809 NaN (parsed from '?') -- allowed by null policy"
+    },
+    {
+      "check": "missing ('?')",
+      "column": "relationship",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "0 missing (0.00%): 0 literal '?', 0 NaN (parsed from '?') -- allowed by null policy"
+    },
+    {
+      "check": "missing ('?')",
+      "column": "race",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "0 missing (0.00%): 0 literal '?', 0 NaN (parsed from '?') -- allowed by null policy"
+    },
+    {
+      "check": "missing ('?')",
+      "column": "sex",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "0 missing (0.00%): 0 literal '?', 0 NaN (parsed from '?') -- allowed by null policy"
+    },
+    {
+      "check": "missing not allowed",
+      "column": "capital-gain",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "numeric/target column must be complete"
+    },
+    {
+      "check": "missing not allowed",
+      "column": "capital-loss",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "numeric/target column must be complete"
+    },
+    {
+      "check": "missing not allowed",
+      "column": "hours-per-week",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "numeric/target column must be complete"
+    },
+    {
+      "check": "missing ('?')",
+      "column": "native-country",
+      "violations": 0,
+      "status": "INFO",
+      "detail": "857 missing (1.75%): 0 literal '?', 857 NaN (parsed from '?') -- allowed by null policy"
+    },
+    {
+      "check": "missing not allowed",
+      "column": "income",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "numeric/target column must be complete"
+    },
+    {
+      "check": "allowed categories",
+      "column": "workclass",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "8 allowed + '?'; observed 8 distinct"
+    },
+    {
+      "check": "allowed categories",
+      "column": "education",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "16 allowed + '?'; observed 16 distinct"
+    },
+    {
+      "check": "allowed categories",
+      "column": "marital-status",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "7 allowed + '?'; observed 7 distinct"
+    },
+    {
+      "check": "allowed categories",
+      "column": "occupation",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "14 allowed + '?'; observed 14 distinct"
+    },
+    {
+      "check": "allowed categories",
+      "column": "relationship",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "6 allowed + '?'; observed 6 distinct"
+    },
+    {
+      "check": "allowed categories",
+      "column": "race",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "5 allowed + '?'; observed 5 distinct"
+    },
+    {
+      "check": "allowed categories",
+      "column": "sex",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "2 allowed + '?'; observed 2 distinct"
+    },
+    {
+      "check": "allowed categories",
+      "column": "native-country",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "41 allowed + '?'; observed 41 distinct"
+    },
+    {
+      "check": "allowed categories",
+      "column": "income",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "2 allowed + '?'; observed 2 distinct"
+    },
+    {
+      "check": "exact duplicate rows",
+      "column": "*",
+      "violations": 52,
+      "status": "WARN",
+      "detail": "101 rows involved in 49 groups"
+    },
+    {
+      "check": "duplicate features, conflicting label",
+      "column": "*",
+      "violations": 5,
+      "status": "WARN",
+      "detail": "5 feature groups carry both labels (audited in step 6)"
+    },
+    {
+      "check": "education <-> education-num 1:1",
+      "column": "education",
+      "violations": 0,
+      "status": "PASS",
+      "detail": "16 education levels map to 16 codes"
+    }
+  ],
+  "row_violations": 52
+}
