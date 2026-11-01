@@ -25,7 +25,9 @@ def ingest(cfg):
     # The stored snapshot must be identical to what was fetched: values, dtypes, categories.
     pd.testing.assert_frame_equal(pd.read_parquet(RAW_PATH), raw)
 
-    source_files = sorted(p for p in OPENML_DIR.rglob("*") if p.is_file())
+    # Only the data file: the JSON metadata files are gzipped locally by sklearn with the download
+    # time in the gzip header, so their hashes change on every fresh download.
+    source_files = sorted(p for p in OPENML_DIR.rglob("data/v1/download/*") if p.is_file())
     target = cfg["target"]["source_column"]
     lines = [
         f"source: OpenML '{ds['name']}' version {ds['version']} (id {bunch.details['id']}), "
@@ -36,7 +38,7 @@ def ingest(cfg):
         f"round-trip identical to fetched frame: OK",
         f"sha256 content (CSV of the frame): {sha256_frame(raw)}",
         f"sha256 snapshot file:              {sha256_file(RAW_PATH)}",
-        "downloaded OpenML files (sha256):",
+        "downloaded OpenML data file (ARFF, gzip; sha256):",
         *[f"  {sha256_file(p)}  {p.relative_to(OPENML_DIR).as_posix()}" for p in source_files],
         "",
         f"{'column':<16}{'dtype':<10}{'non-null':>9}{'NaN':>6}",

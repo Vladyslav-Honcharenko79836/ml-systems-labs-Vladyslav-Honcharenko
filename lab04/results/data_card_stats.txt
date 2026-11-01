@@ -1,0 +1,28 @@
+rows 48842  overall >50K rate 0.239
+
+sex:
+        share  >50K rate
+sex                     
+Male    0.668      0.304
+Female  0.332      0.109
+
+race:
+                    share  >50K rate
+race                                
+White               0.855      0.254
+Black               0.096      0.121
+Asian-Pac-Islander  0.031      0.269
+Amer-Indian-Eskimo  0.010      0.117
+Other               0.008      0.123
+
+native-country United-States 0.897, missing 0.018, other 40 countries 0.085
+
+workclass/occupation missing rate by age band (missing not at random):
+age
+17-24   0.122
+25-64   0.033
+65-90   0.240
+>50K rate when workclass missing 0.095 vs present 0.248
+
+re-identification: quasi-identifiers ['age', 'sex', 'race', 'native-country', 'education', 'marital-status', 'occupation']
+  equivalence classes 22043;  rows unique on them (k = 1): 15620 (32.0%);  k < 5: 27057 rows (55.4%)

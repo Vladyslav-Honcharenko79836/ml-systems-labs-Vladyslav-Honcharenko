@@ -4,11 +4,7 @@ rows 48842  columns 15  (expected 48842 x 15: OK)
 snapshot: data/lab04/raw/adult_raw.parquet  round-trip identical to fetched frame: OK
 sha256 content (CSV of the frame): 8f970e20c9991979ec0a9ccb65ce97543d678709a2c6f8ef23f7fb32f40adddc
 sha256 snapshot file:              9ed5ef4376e0187d5d9424a7d9d08a3e1523cc1fad0ba20108889f33edb044e1
-downloaded OpenML files (sha256):
-  11b599c2e9c98ff6fa4d02d3a8318ccbb1ac001ea090acdb7e76438bf6715d12  openml/openml.org/api/v1/json/data/1590.gz
-  180639d6c9a30d537d8954a3c35d23a1b6ed876a38c2cddae34dec948bb5b6d8  openml/openml.org/api/v1/json/data/features/1590.gz
-  9a0a2058c44029c771b4d7f38917af72206eb8e4c438b3f0496cb94436734a33  openml/openml.org/api/v1/json/data/list/data_name/adult/limit/2/data_version/2.gz
-  9d745613b34ff19886f104714b21d1924f85c0e822da4df0b693f9d2f7b08baf  openml/openml.org/api/v1/json/data/qualities/1590.gz
+downloaded OpenML data file (ARFF, gzip; sha256):
   bd3946bc53d0fd3274f5bf6a0ffb014bbb4cde99243affc196734fc99a3bb0e5  openml/openml.org/data/v1/download/1595261.gz
 
 column          dtype      non-null   NaN

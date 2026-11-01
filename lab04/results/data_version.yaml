@@ -1,0 +1,198 @@
+dataset: OpenML adult v2 (id 1590)
+sha256:
+  processed_dataset: dd945be021c39f0662e2f231680e52846b983c4537b60fe3fe194d8bf93df41c
+  processed_train_csv: 389b7fb65a18eddad7b0b38289b08aede648d64fa53c6d58fbeb1ea5831c6846
+  processed_test_csv: 5b936f23548d0a03ebba7ea2680cefddea73f247dd681399571962e3b1613cf0
+  raw_content: 8f970e20c9991979ec0a9ccb65ce97543d678709a2c6f8ef23f7fb32f40adddc
+  config_yaml: ccfc2b594bb10cdbb8087cbe63aea8290a44230fa5484f41c826f38f51cbd028
+processed_files:
+  train:
+    path: data/lab04/processed/train.csv
+    rows: 34165
+    columns: 18
+    bytes: 4998225
+  test:
+    path: data/lab04/processed/test.csv
+    rows: 14653
+    columns: 18
+    bytes: 2145986
+baseline_logreg_test:
+  accuracy: 0.8578
+  f1: 0.6696
+environment:
+  python: 3.11.8
+  numpy: 1.26.4
+  pandas: 2.2.2
+  scikit-learn: 1.5.0
+config:
+  seed: 42
+  dataset:
+    name: adult
+    version: 2
+    expected_rows: 48842
+    expected_cols: 15
+  target:
+    column: income
+    source_column: class
+    positive: '>50K'
+  split:
+    test_size: 0.3
+    stratify: true
+  schema:
+    types:
+      age: int
+      workclass: category
+      fnlwgt: int
+      education: category
+      education-num: int
+      marital-status: category
+      occupation: category
+      relationship: category
+      race: category
+      sex: category
+      capital-gain: int
+      capital-loss: int
+      hours-per-week: int
+      native-country: category
+      income: category
+    ranges:
+      age:
+      - 17
+      - 90
+      hours-per-week:
+      - 1
+      - 99
+      capital-gain:
+      - 0
+      - 99999
+      capital-loss:
+      - 0
+      - 4356
+    missing_token: '?'
+    allowed_categories:
+      workclass:
+      - Private
+      - Self-emp-not-inc
+      - Self-emp-inc
+      - Federal-gov
+      - Local-gov
+      - State-gov
+      - Without-pay
+      - Never-worked
+      education:
+      - Bachelors
+      - Some-college
+      - 11th
+      - HS-grad
+      - Prof-school
+      - Assoc-acdm
+      - Assoc-voc
+      - 9th
+      - 7th-8th
+      - 12th
+      - Masters
+      - 1st-4th
+      - 10th
+      - Doctorate
+      - 5th-6th
+      - Preschool
+      marital-status:
+      - Married-civ-spouse
+      - Divorced
+      - Never-married
+      - Separated
+      - Widowed
+      - Married-spouse-absent
+      - Married-AF-spouse
+      occupation:
+      - Tech-support
+      - Craft-repair
+      - Other-service
+      - Sales
+      - Exec-managerial
+      - Prof-specialty
+      - Handlers-cleaners
+      - Machine-op-inspct
+      - Adm-clerical
+      - Farming-fishing
+      - Transport-moving
+      - Priv-house-serv
+      - Protective-serv
+      - Armed-Forces
+      relationship:
+      - Wife
+      - Own-child
+      - Husband
+      - Not-in-family
+      - Other-relative
+      - Unmarried
+      race:
+      - White
+      - Asian-Pac-Islander
+      - Amer-Indian-Eskimo
+      - Other
+      - Black
+      sex:
+      - Female
+      - Male
+      native-country:
+      - United-States
+      - Cambodia
+      - England
+      - Puerto-Rico
+      - Canada
+      - Germany
+      - Outlying-US(Guam-USVI-etc)
+      - India
+      - Japan
+      - Greece
+      - South
+      - China
+      - Cuba
+      - Iran
+      - Honduras
+      - Philippines
+      - Italy
+      - Poland
+      - Jamaica
+      - Vietnam
+      - Mexico
+      - Portugal
+      - Ireland
+      - France
+      - Dominican-Republic
+      - Laos
+      - Ecuador
+      - Taiwan
+      - Haiti
+      - Columbia
+      - Hungary
+      - Guatemala
+      - Nicaragua
+      - Scotland
+      - Thailand
+      - Yugoslavia
+      - El-Salvador
+      - Trinadad&Tobago
+      - Peru
+      - Hong
+      - Holand-Netherlands
+      income:
+      - <=50K
+      - '>50K'
+  preprocessing:
+    numeric_impute: median
+    categorical_impute: most_frequent
+    clip_percentiles:
+    - 1
+    - 99
+    drop_train_duplicates: true
+  features:
+    derived:
+    - capital_net
+    - hours_per_age
+  model:
+    max_iter: 5000
+    C: 1.0
+  label_audit:
+    sample_size: 50
