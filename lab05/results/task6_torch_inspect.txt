@@ -1,0 +1,110 @@
+torch 2.14.1+cu126, threads=4, cuda=True (NVIDIA GeForce GTX 1060 3GB)
+==============================================================================
+PART A: computation graph of TinyMLP (2 -> 8 -> 1)
+==============================================================================
+
+-- torch.fx graph (Python-level IR, one node per op) --
+graph():
+    %x : [num_users=1] = placeholder[target=x]
+    %fc1 : [num_users=1] = call_module[target=fc1](args = (%x,), kwargs = {})
+    %relu : [num_users=1] = call_function[target=torch.relu](args = (%fc1,), kwargs = {})
+    %fc2 : [num_users=1] = call_module[target=fc2](args = (%relu,), kwargs = {})
+    %sigmoid : [num_users=1] = call_function[target=torch.sigmoid](args = (%fc2,), kwargs = {})
+    return sigmoid
+-- torch.fx generated code --
+
+
+
+def forward(self, x):
+    fc1 = self.fc1(x);  x = None
+    relu = torch.relu(fc1);  fc1 = None
+    fc2 = self.fc2(relu);  relu = None
+    sigmoid = torch.sigmoid(fc2);  fc2 = None
+    return sigmoid
+    
+-- torch.jit.trace graph (TorchScript IR, with shapes/dtypes) --
+graph(%self.1 : __torch__.TinyMLP,
+      %x : Float(4, 2, strides=[2, 1], requires_grad=0, device=cpu)):
+  %fc2 : __torch__.torch.nn.modules.linear.___torch_mangle_0.Linear = prim::GetAttr[name="fc2"](%self.1)
+  %fc1 : __torch__.torch.nn.modules.linear.Linear = prim::GetAttr[name="fc1"](%self.1)
+  %28 : Tensor = prim::CallMethod[name="forward"](%fc1, %x)
+  %input : Float(4, 8, strides=[8, 1], requires_grad=1, device=cpu) = aten::relu(%28) # C:\Users\Fake_GB\Desktop\cdc\lab5\torch_inspect.py:34:0
+  %29 : Tensor = prim::CallMethod[name="forward"](%fc2, %input)
+  %17 : Float(4, 1, strides=[1, 1], requires_grad=1, device=cpu) = aten::sigmoid(%29) # C:\Users\Fake_GB\Desktop\cdc\lab5\torch_inspect.py:34:0
+  return (%17)
+
+-- autograd graph of the eager forward (grad_fn chain) --
+SumBackward0
+  SigmoidBackward0
+    AddmmBackward0
+      ReluBackward0
+        AddmmBackward0
+          TBackward0
+
+==============================================================================
+PART C: tensor shape, dtype, stride, contiguity
+==============================================================================
+  x                      shape=(3, 4)         dtype=torch.float32  stride=(4, 1)       contiguous=True  shares_storage=True
+  x.t()                  shape=(4, 3)         dtype=torch.float32  stride=(1, 4)       contiguous=False shares_storage=True
+  x[:, ::2]              shape=(3, 2)         dtype=torch.float32  stride=(4, 2)       contiguous=False shares_storage=True
+  x[1:, 1:]              shape=(2, 3)         dtype=torch.float32  stride=(4, 1)       contiguous=False shares_storage=True
+  x.view(4, 3)           shape=(4, 3)         dtype=torch.float32  stride=(3, 1)       contiguous=True  shares_storage=True
+  x.t().contiguous()     shape=(4, 3)         dtype=torch.float32  stride=(3, 1)       contiguous=True  shares_storage=False
+  x.half()               shape=(3, 4)         dtype=torch.float16  stride=(4, 1)       contiguous=True  shares_storage=False
+  x.t().view(12) -> RuntimeError: view size is not compatible with input tensor's size and stride (at least one dimension sp...
+  x.t().reshape(12) works (it silently copies): shares_storage=False
+
+==============================================================================
+PART B: eager vs torch.compile vs torch.jit.trace (inference)
+==============================================================================
+
+TinyMLP 2->8->1 on CPU  (us per forward call, median, after warm-up)
+  batch     eager  jit.trace   compile    backend  trace/eag  comp/eag  compile 1st  trace err
+      1      41.5       41.7     149.6  aot_eager      0.99x     0.28x        0.11s    0.0e+00
+    256      62.7       59.1     168.9  aot_eager      1.06x     0.37x        0.10s    0.0e+00
+   8192     276.8      275.5     394.7  aot_eager      1.00x     0.70x        0.10s    0.0e+00
+  Inductor (real compilation) unsupported here -> fell back to backend='aot_eager' + jit.trace. Reason: InductorError: InvalidCxxCompiler: Compiler: cl is not found.
+
+FusableBlock d=256 on CPU  (us per forward call, median, after warm-up)
+  batch     eager  jit.trace   compile    backend  trace/eag  comp/eag  compile 1st  trace err
+      1     272.0      238.5     487.0  aot_eager      1.14x     0.56x        0.14s    0.0e+00
+     64    1387.4     1354.4    1863.7  aot_eager      1.02x     0.74x        0.14s    0.0e+00
+   1024   14036.0    13798.6   13637.6  aot_eager      1.02x     1.03x        0.15s    0.0e+00
+  Inductor (real compilation) unsupported here -> fell back to backend='aot_eager' + jit.trace. Reason: InductorError: InvalidCxxCompiler: Compiler: cl is not found.
+
+TinyMLP 2->8->1 on CUDA  (us per forward call, median, after warm-up)
+  batch     eager  jit.trace   compile    backend  trace/eag  comp/eag  compile 1st  trace err
+      1     207.0      178.7     311.3  aot_eager      1.16x     0.66x        0.10s    0.0e+00
+    256     191.6      179.2     308.2  aot_eager      1.07x     0.62x        0.10s    0.0e+00
+   8192     187.3      177.4     309.1  aot_eager      1.06x     0.61x        0.10s    0.0e+00
+  Inductor (real compilation) unsupported here -> fell back to backend='aot_eager' + jit.trace. Reason: GPUTooOldForTriton: Found NVIDIA GeForce GTX 1060 3GB which is too old to be supported by the triton GPU compiler, which is used a
+
+FusableBlock d=256 on CUDA  (us per forward call, median, after warm-up)
+  batch     eager  jit.trace   compile    backend  trace/eag  comp/eag  compile 1st  trace err
+      1     508.4      240.6     761.1  aot_eager      2.11x     0.67x        0.13s    2.4e-07
+     64     595.8      266.6     750.3  aot_eager      2.23x     0.79x        0.14s    4.8e-07
+   1024     979.0      617.1     937.8  aot_eager      1.59x     1.04x        0.13s    7.2e-07
+  Inductor (real compilation) unsupported here -> fell back to backend='aot_eager' + jit.trace. Reason: GPUTooOldForTriton: Found NVIDIA GeForce GTX 1060 3GB which is too old to be supported by the triton GPU compiler, which is used a
+
+==============================================================================
+PART D: effect of a non-contiguous view on operation speed
+==============================================================================
+
+CPU, 4096x4096 float32 (ms, median)
+operation                       contiguous  non-contig  slowdown
+a + b      (elementwise)              8.26       73.69     8.92x
+b.sum(dim=1) (reduction)              1.68        7.38     4.40x
+b * 2      (strided slice)            5.88        8.54     1.45x
+b.exp()    (unary)                    6.65        6.51     0.98x
+a @ b      (matmul)                 993.60      997.60     1.00x
+cost of bt.contiguous() copy         37.66
+
+CUDA, 4096x4096 float32 (ms, median)
+operation                       contiguous  non-contig  slowdown
+a + b      (elementwise)              1.30        2.25     1.73x
+b.sum(dim=1) (reduction)              0.45        0.51     1.15x
+b * 2      (strided slice)            0.89        1.29     1.46x
+b.exp()    (unary)                    0.87        0.89     1.02x
+a @ b      (matmul)                  41.64       40.50     0.97x
+cost of bt.contiguous() copy          1.73
+
