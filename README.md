@@ -8,6 +8,7 @@ Individual lab work for *Introduction to Machine Learning Systems* (V. J. Reddi)
 | `lab02` | A neural network from scratch (NumPy)       |
 | `lab03` | Architectures and their costs (MLP/CNN/attention) |
 | `lab04` | Data pipeline and quality (UCI Adult)       |
+| `lab05` | Frameworks and automatic differentiation    |
 
 ## Environment
 
