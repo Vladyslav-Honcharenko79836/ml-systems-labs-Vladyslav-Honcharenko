@@ -1,0 +1,26 @@
+Graph of ((a*b + c)**2).relu() for a=2, b=-3, c=10 after backward():
+[relu] data=16 grad=1
+  [**2] data=16 grad=1
+    [+] data=4 grad=8
+      [*] data=-6 grad=8
+        [a] data=2 grad=-24
+        [b] data=-3 grad=16
+      [c] data=10 grad=8
+
+Task 4: ((a*b + c)**2).relu().sum(), N=10
+  forward   ours=20.0021335759  torch=20.0021335759  |diff|=0.00e+00
+  max |grad_ours - grad_torch|     = 0.00e+00
+  max |grad_ours - grad_numerical| = 1.82e-09
+  -> PASS (tol 1e-06)
+
+Extra: ((a*b + c).relu()**2).sum()  (ReLU active on some elements)
+  forward   ours=17.2910338445  torch=17.2910338445  |diff|=0.00e+00
+  max |grad_ours - grad_torch|     = 0.00e+00
+  max |grad_ours - grad_numerical| = 1.48e-09
+  -> PASS (tol 1e-06)
+
+Gradient accumulation
+  y = x*x + x, x=3: dy/dx = 7.0 (expected 7)  -> PASS
+  diamond d = (3a)*(a^2), a=2: dd/da = 36.0 (expected 36) -> PASS
+
+ALL PASS
