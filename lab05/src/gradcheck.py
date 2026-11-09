@@ -2,6 +2,7 @@ import random
 
 import torch
 
+from common import tee_results
 from engine import Value, vsum, print_graph
 
 TOL = 1e-6
@@ -117,4 +118,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    with tee_results("gradcheck.txt"):
+        main()

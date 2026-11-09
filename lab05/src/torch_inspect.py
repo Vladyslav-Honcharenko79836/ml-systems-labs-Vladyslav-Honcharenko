@@ -5,6 +5,8 @@ import warnings
 import torch
 import torch.nn as nn
 
+from common import tee_results
+
 warnings.filterwarnings("ignore")
 torch.manual_seed(0)
 
@@ -212,7 +214,7 @@ def part_d():
     print()
 
 
-if __name__ == "__main__":
+def main():
     torch.set_num_threads(4)
     print(f"torch {torch.__version__}, threads={torch.get_num_threads()}, "
           f"cuda={torch.cuda.is_available()}"
@@ -221,3 +223,8 @@ if __name__ == "__main__":
     part_c()
     part_b()
     part_d()
+
+
+if __name__ == "__main__":
+    with tee_results("torch_inspect.txt"):
+        main()

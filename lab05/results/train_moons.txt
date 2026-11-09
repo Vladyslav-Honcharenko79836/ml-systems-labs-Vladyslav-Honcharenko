@@ -1,0 +1,15 @@
+make_moons n=200, model 2->8->1 (ReLU, sigmoid), BCE, full-batch SGD lr=0.5, epochs=300, runs=5
+
+implementation                  median, s   speedup   final loss  train acc
+our engine (Python scalars)       17.1897      1.0x     0.260817      0.890
+PyTorch CPU float64                0.1371    125.4x     0.260817      0.890
+PyTorch CPU float32                0.1377    124.8x     0.260816      0.890
+PyTorch CUDA float32               0.3332     51.6x     0.260816      0.890
+
+all runs (s):
+  our engine (Python scalars)    17.1843, 17.2830, 17.1897, 17.1571, 17.3238
+  PyTorch CPU float64            0.1391, 0.1364, 0.1371, 0.1366, 0.1412
+  PyTorch CPU float32            0.1397, 0.1385, 0.1377, 0.1354, 0.1342
+  PyTorch CUDA float32           0.3370, 0.3469, 0.3292, 0.3309, 0.3332
+
+|loss_engine - loss_torch_f64| = 4.98e-12

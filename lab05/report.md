@@ -12,9 +12,18 @@ half-circles). It uses sklearn automatically if it is installed.
 | `src/gradcheck.py` | 4 | engine vs PyTorch autograd vs numerical gradients |
 | `src/train_moons.py` | 5 | 2→8→1 MLP on make_moons, engine vs PyTorch timing (median of 5) |
 | `src/torch_inspect.py` | 6 | PyTorch graphs, eager vs compile/trace, strides and contiguity |
-| `results/task*.txt` | — | raw output of the runs used in this report |
+| `src/common.py` | — | paths; prints a script's output to the console and saves it to `results/<script>.txt` |
+| `results/*.txt` | — | output of the three scripts, written by the scripts themselves |
 
-Run from the repository root: `python lab05/src/gradcheck.py`, `python lab05/src/train_moons.py`, `python lab05/src/torch_inspect.py`.
+Run from the repository root:
+
+```bash
+python lab05/src/gradcheck.py      # -> lab05/results/gradcheck.txt      (~1 s)
+python lab05/src/train_moons.py    # -> lab05/results/train_moons.txt    (~1.5 min)
+python lab05/src/torch_inspect.py  # -> lab05/results/torch_inspect.txt  (~1.5 min)
+```
+
+All numbers in this report are taken from those files.
 
 ---
 
@@ -92,7 +101,7 @@ Both are below the required 1e-6 → **PASS**. In this formula ReLU comes after
 squaring, so its input is always ≥ 0 and it never clips. For that reason a
 second case `((a*b+c).relu()**2).sum()` was also checked, where ReLU *is*
 active for some elements: 0.0 vs torch, 1.5e-9 vs numerical → PASS.
-Full output: `results/task4_gradcheck.txt`.
+Full output: `results/gradcheck.txt`.
 
 ## 5. make_moons training, engine vs PyTorch [15]
 
@@ -105,30 +114,31 @@ and the table reports the median.
 
 | implementation | median time, s | speedup vs engine | final loss | train acc |
 |---|---|---|---|---|
-| our engine (Python scalars, float64) | 16.88 | 1× | 0.260817 | 0.890 |
-| PyTorch CPU float64 | 0.134 | **126×** | 0.260817 | 0.890 |
-| PyTorch CPU float32 | 0.134 | 126× | 0.260816 | 0.890 |
-| PyTorch CUDA float32 | 0.315 | 54× | 0.260816 | 0.890 |
+| our engine (Python scalars, float64) | 17.19 | 1× | 0.260817 | 0.890 |
+| PyTorch CPU float64 | 0.137 | **125×** | 0.260817 | 0.890 |
+| PyTorch CPU float32 | 0.138 | 125× | 0.260816 | 0.890 |
+| PyTorch CUDA float32 | 0.333 | 52× | 0.260816 | 0.890 |
 
-Engine runs: 17.32, 17.05, 16.86, 16.88, 16.81 s. The spread between runs is small.
+Engine runs: 17.18, 17.28, 17.19, 17.16, 17.32 s. The spread between runs is under 1%.
 
 The final loss of the engine and of PyTorch float64 differ by only 5e-12,
-so the engine computes exactly the same training run. The ~126× slowdown is
+so the engine computes exactly the same training run. The ~125× slowdown is
 pure **framework overhead**. Every scalar op in the engine is one Python
 object plus one closure, about 10⁴ nodes per epoch. PyTorch does the same
 work as a few vectorized ATen kernels on (200×2) and (200×8) tensors. The GPU
 is *slower* than the CPU here: the tensors are tiny, so the run is bound by
 kernel-launch and synchronisation overhead, not by FLOPs. Full output:
-`results/task5_moons_benchmark.txt`.
+`results/train_moons.txt`.
 
 Note: the `_backward` closures create reference cycles (node → closure →
 node). Python's cyclic GC has to collect them, so `gc.collect()` is called
-before each timed run. Without it, the first benchmark attempt showed engine
-times growing from 26 s to 65 s over the 5 runs.
+before each timed run. An earlier version of the script without it (and with
+n=300 instead of 200) showed engine times growing from 26 s to 65 s over
+the 5 runs.
 
 ## 6. PyTorch graphs, eager vs compiled, tensor layout [20]
 
-Full output: `results/task6_torch_inspect.txt`.
+Full output: `results/torch_inspect.txt`.
 
 ### 6a. Graph of a small model
 
@@ -161,15 +171,16 @@ Timings are µs per forward call, median of 5×50 calls after 10 warm-up calls, 
 
 | model / device | batch | eager | jit.trace | compile (aot_eager) | trace speedup |
 |---|---|---|---|---|---|
-| TinyMLP, CPU | 1 | 41.5 | 41.7 | 149.6 | 0.99× |
-| TinyMLP, CPU | 8192 | 276.8 | 275.5 | 394.7 | 1.00× |
-| FusableBlock, CPU | 1 | 272.0 | 238.5 | 487.0 | 1.14× |
-| FusableBlock, CPU | 1024 | 14036 | 13799 | 13638 | 1.02× |
-| TinyMLP, CUDA | 1 | 207.0 | 178.7 | 311.3 | 1.16× |
-| TinyMLP, CUDA | 8192 | 187.3 | 177.4 | 309.1 | 1.06× |
-| FusableBlock, CUDA | 1 | 508.4 | **240.6** | 761.1 | **2.11×** |
-| FusableBlock, CUDA | 64 | 595.8 | **266.6** | 750.3 | **2.23×** |
-| FusableBlock, CUDA | 1024 | 979.0 | **617.1** | 937.8 | **1.59×** |
+| TinyMLP, CPU | 1 | 43.9 | 41.7 | 148.8 | 1.05× |
+| TinyMLP, CPU | 8192 | 294.7 | 281.0 | 416.6 | 1.05× |
+| FusableBlock, CPU | 1 | 300.7 | 245.9 | 465.7 | 1.22× |
+| FusableBlock, CPU | 64 | 1380.9 | 1378.3 | 1638.7 | 1.00× |
+| FusableBlock, CPU | 1024 | 13177 | 13024 | 13703 | 1.01× |
+| TinyMLP, CUDA | 1 | 204.6 | 188.4 | 318.6 | 1.09× |
+| TinyMLP, CUDA | 8192 | 195.8 | 224.0 | 308.0 | 0.87× |
+| FusableBlock, CUDA | 1 | 488.4 | **239.5** | 755.6 | **2.04×** |
+| FusableBlock, CUDA | 64 | 577.6 | **271.7** | 746.6 | **2.13×** |
+| FusableBlock, CUDA | 1024 | 1025.7 | **618.9** | 940.1 | **1.66×** |
 
 `FusableBlock` = Linear(256→1024) → GELU → `h*sigmoid(h)+0.1h` → Linear →
 `x + 0.5·tanh(y)` → manual layer-norm, i.e. two matmuls plus a long chain of
@@ -177,17 +188,20 @@ elementwise and reduction ops. The traced outputs match eager to within ≤7e-7.
 
 Observations:
 
-* On CUDA, tracing gives a **1.6–2.2× speedup for FusableBlock**. The ~10
+* On CUDA, tracing gives a **1.7–2.1× speedup for FusableBlock**. The ~10
   elementwise ops are fused into a few kernels, so there are fewer launches
   (each costs about 10–20 µs on this GPU) and fewer round trips to memory. The
   gain is largest at small batch, where launch overhead dominates, and
   smaller at batch 1024, where the matmuls take more of the time.
-* On the CPU, tracing gives almost nothing (0–14%). The CPU kernels are
-  already called with little overhead and the CPU TorchScript fuser is off by
-  default, so only the Python dispatch for the small batch is saved.
+* On the CPU, tracing gives almost nothing (0–5%, up to 22% only at batch 1).
+  The CPU kernels are already called with little overhead and the CPU
+  TorchScript fuser is off by default, so only the Python dispatch for the
+  small batch is saved.
+* For TinyMLP on CUDA the run is pure launch overhead (~190–200 µs at any
+  batch size). Tracing changes it by ±10%, which is within run-to-run noise.
 * `compile(aot_eager)` is **slower** than eager for small inputs: it adds the
   cost of the Dynamo guards and the wrapper but no fused kernels. It only
-  breaks even at large batch (1.03×). The first call (graph capture) takes
+  comes close to eager at large batch (0.96× on CPU, 1.09× on CUDA). The first call (graph capture) takes
   about 0.1–0.15 s, the same as hundreds of eager calls.
 
 ### 6c. Tensor shape, dtype, stride, contiguity
@@ -212,23 +226,23 @@ makes a copy.
 
 | operation | CPU contig. | CPU non-contig. | slowdown | CUDA contig. | CUDA non-contig. | slowdown |
 |---|---|---|---|---|---|---|
-| `a + b.t()` | 8.26 | 73.69 | **8.9×** | 1.30 | 2.25 | **1.7×** |
-| `b.t().sum(dim=1)` | 1.68 | 7.38 | **4.4×** | 0.45 | 0.51 | 1.15× |
-| `b[:, ::2] * 2` | 5.88 | 8.54 | 1.45× | 0.89 | 1.29 | 1.46× |
-| `b.t().exp()` | 6.65 | 6.51 | 0.98× | 0.87 | 0.89 | 1.02× |
-| `a @ b.t()` | 993.6 | 997.6 | 1.00× | 41.6 | 40.5 | 0.97× |
-| `b.t().contiguous()` (copy) | 37.66 | | | 1.73 | | |
+| `a + b.t()` | 7.65 | 70.12 | **9.2×** | 1.34 | 2.30 | **1.7×** |
+| `b.t().sum(dim=1)` | 1.75 | 7.57 | **4.3×** | 0.48 | 0.54 | 1.13× |
+| `b[:, ::2] * 2` | 6.08 | 8.17 | 1.34× | 0.91 | 1.33 | 1.46× |
+| `b.t().exp()` | 6.91 | 6.09 | 0.88× | 0.91 | 0.90 | 0.99× |
+| `a @ b.t()` | 945.9 | 998.1 | 1.06× | 42.1 | 40.4 | 0.96× |
+| `b.t().contiguous()` (copy) | 38.16 | | | 1.75 | | |
 
 * The worst case is **mixing layouts**: `a` is row-major and `b.t()` is
   column-major. At least one operand is then read with stride 4096, so every
   element comes from a different cache line (CPU) or the memory accesses are
-  not coalesced (GPU). 8.9× slower on the CPU.
+  not coalesced (GPU). 9.2× slower on the CPU.
 * `exp()` on a transposed tensor costs nothing extra. With a single operand,
   TensorIterator simply reorders the loop to follow memory order.
-* A reduction along the "wrong" axis is 4.4× slower on the CPU, because it
+* A reduction along the "wrong" axis is 4.3× slower on the CPU, because it
   can no longer stream along contiguous memory with SIMD.
-* A strided slice `[:, ::2]` uses only half of every cache line → about 1.45×.
-* `matmul` does not care. BLAS/cuBLAS take the transpose as a flag
+* A strided slice `[:, ::2]` uses only half of every cache line → about 1.3–1.5×.
+* `matmul` barely cares (within ±6%). BLAS/cuBLAS take the transpose as a flag
   (`op(B)=Bᵀ`), so `x.t()` costs nothing as a matmul input.
 * An explicit `.contiguous()` costs as much as about 4 elementwise ops on the
   CPU. It pays off only when the tensor is reused several times.
@@ -243,7 +257,7 @@ compiled graph is **reused many times** with stable shapes:
 
 * **Chains of elementwise and reduction ops** (activations, normalization,
   residuals, masking). Fusing them into one kernel removes kernel launches
-  and memory traffic for intermediate tensors. Measured here: up to **2.2×**
+  and memory traffic for intermediate tensors. Measured here: up to **2.1×**
   on GPU for FusableBlock with tracing alone, at small and medium batch.
 * **Small batches / small tensors on GPU**, where the run is bound by
   launches rather than FLOPs (CUDA graphs via `mode="reduce-overhead"` target exactly this).
@@ -254,13 +268,13 @@ compiled graph is **reused many times** with stable shapes:
 It does **not** help (or makes things worse) when:
 
 * the time goes into **large matmuls/convolutions** that already call
-  cuBLAS/cuDNN/MKL. FusableBlock at batch 1024 on the CPU gave 1.02×;
+  cuBLAS/cuDNN/MKL. FusableBlock at batch 1024 on the CPU gave 1.01×;
 * the model is **tiny and runs only a few times**, so compile time dominates;
 * **shapes or control flow keep changing**, causing recompilations and graph breaks;
 * the **toolchain is missing**, as on this machine: Inductor needs a C++
   compiler on the CPU and Triton on a GPU of compute capability ≥ 7.0. A
   "compile" without code generation (`aot_eager`) only adds guard overhead,
-  measured here as 0.3–0.7× of eager speed on small inputs.
+  measured here as 0.3–0.8× of eager speed on small inputs.
 
 For non-contiguous tensors, the same reasoning applies: a compiler (or a
 single explicit `.contiguous()`) helps if the strided tensor is used by

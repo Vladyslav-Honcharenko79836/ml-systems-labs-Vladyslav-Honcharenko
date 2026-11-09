@@ -10,6 +10,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+from common import tee_results
 from engine import Value, vsum
 
 
@@ -176,4 +177,5 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    with tee_results("train_moons.txt"):
+        main()
