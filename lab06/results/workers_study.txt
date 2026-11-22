@@ -1,0 +1,14 @@
+torch 2.14.1+cu126 | device cuda (NVIDIA GeForce GTX 1060 3GB) | CPU threads 8 | python 3.14.2 | batch 128 | pin_memory on GPU | persistent workers | train epoch = median of epochs 2-3, data-only = median of 2 passes (loader + host-to-device copy, no model)
+compute only (whole train set pre-loaded as tensors, no DataLoader): GPU 1.28 s/epoch (43,033 samples/s), CPU 6.82 s/epoch (8,067 samples/s)
+
+device workers 1st batch s epoch 1 s  epoch s samples/s data-only s data samples/s
+cuda         0        0.09     12.52    12.46     4,414       11.43          4,811
+cuda         1        5.89     11.10    10.98     5,007       10.97          5,012
+cuda         2       10.55      5.65     5.57     9,879        5.51          9,988
+cuda         4       21.01      3.04     2.94    18,713        2.86         19,225
+cuda         8       42.04      1.86     1.73    31,864        1.57         35,074
+cpu          0        0.10     18.42    18.63     2,952       10.73          5,124
+cpu          1        5.36     12.52    11.91     4,616       10.89          5,053
+cpu          2       10.54      7.44     7.33     7,501        5.52          9,965
+cpu          4       21.08      7.38     7.36     7,474        2.85         19,307
+cpu          8       42.00      7.36     7.32     7,515        1.56         35,344
