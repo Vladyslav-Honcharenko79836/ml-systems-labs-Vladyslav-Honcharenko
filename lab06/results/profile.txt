@@ -1,0 +1,35 @@
+torch.profiler (CPU + CUDA activities) over one full epoch of 430 steps, after one warm-up epoch.
+Each step is split into record_function regions data_loading / forward / backward / optimizer_step;
+every region ends with torch.cuda.synchronize(), so GPU time is charged to the region that launched it.
+Events are collected in chunks of 10 steps (bounded memory). Profiler share = region time / sum of
+ProfilerStep durations. Check column: the same regions timed with perf_counter in an unprofiled epoch.
+
+== profile-cuda-w0: torch 2.14.1+cu126 | device cuda (NVIDIA GeForce GTX 1060 3GB) | CPU threads 8 | python 3.14.2, batch 128, num_workers 0
+profiled steps 431, sum of step times 27.29 s | unprofiled epoch 16.74 s
+region            calls profiler s   share    timer s   share
+data_loading        430     17.501   64.1%     11.273   67.3%
+forward             430      2.526    9.3%      1.333    8.0%
+backward            430      6.539   24.0%      3.647   21.8%
+optimizer_step      430      0.373    1.4%      0.286    1.7%
+other                        0.350    1.3%      0.202    1.2%
+top-25 operators -> results/profile_ops_cuda_w0.txt
+
+== profile-cuda-w4: torch 2.14.1+cu126 | device cuda (NVIDIA GeForce GTX 1060 3GB) | CPU threads 8 | python 3.14.2, batch 128, num_workers 4
+profiled steps 431, sum of step times 2.96 s | unprofiled epoch 2.94 s
+region            calls profiler s   share    timer s   share
+data_loading        430      0.246    8.3%      0.802   27.3%
+forward             430      0.503   17.0%      0.388   13.2%
+backward            430      1.518   51.2%      1.207   41.0%
+optimizer_step      430      0.368   12.4%      0.306   10.4%
+other                        0.329   11.1%      0.240    8.2%
+top-25 operators -> results/profile_ops_cuda_w4.txt
+
+== profile-cpu-w0: torch 2.14.1+cu126 | device cpu (-) | CPU threads 8 | python 3.14.2, batch 128, num_workers 0
+profiled steps 431, sum of step times 25.68 s | unprofiled epoch 18.48 s
+region            calls profiler s   share    timer s   share
+data_loading        430     18.153   70.7%     11.727   63.5%
+forward             430      3.062   11.9%      2.789   15.1%
+backward            430      3.751   14.6%      3.516   19.0%
+optimizer_step      430      0.552    2.2%      0.356    1.9%
+other                        0.163    0.6%      0.093    0.5%
+top-25 operators -> results/profile_ops_cpu_w0.txt

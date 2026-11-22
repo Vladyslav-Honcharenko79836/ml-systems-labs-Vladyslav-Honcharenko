@@ -1,0 +1,27 @@
+profile-cuda-w0: top-25 operators of the profiled epoch
+op                                                           self CPU s self GPU s     calls
+aten::convolution_backward                                        0.070      3.309       860
+aten::max_pool2d_with_indices_backward                            0.018      1.199       860
+_ZN2at6native52_GLOBAL__N__71d79c19_19_DilatedMaxPool2d_cu_9      0.000      1.199       859
+_5x_cudnn_maxwell_scudnn_128x32_stridedB_splitK_medium_nn_v0      0.000      0.934       430
+aten::threshold_backward                                          0.016      0.844       860
+_ZN2at6native29vectorized_elementwise_kernelILi4ENS0_13Binar      0.000      0.844       860
+aten::add_                                                        0.039      0.609      4730
+_ZN2at6native18elementwise_kernelILi128ELi2EZNS0_22gpu_kerne      0.000      0.592       840
+aten::clamp_min                                                   0.017      0.581       860
+_ZN2at6native29vectorized_elementwise_kernelILi4EZZZNS0_49_G      0.000      0.581       842
+aten::max_pool2d_with_indices                                     0.024      0.521       860
+_ZN2at6native52_GLOBAL__N__71d79c19_19_DilatedMaxPool2d_cu_9      0.000      0.521       844
+maxwell_sgemm_32x128_nt                                           0.000      0.517       430
+aten::cudnn_convolution                                           0.047      0.507       860
+_5x_cudnn_maxwell_scudnn_128x32_relu_small_nn_v1                  0.000      0.497       838
+maxwell_sgemm_64x64_nt                                            0.000      0.479       430
+_ZN5cudnn17winograd_nonfused22winogradForwardData4x4IffEEvNS      0.000      0.471       431
+_ZN5cudnn17winograd_nonfused21winogradWgradDelta4x4IffEEvNS0      0.000      0.456       430
+aten::fill_                                                       0.020      0.340      2153
+_ZN2at6native29vectorized_elementwise_kernelILi4ENS0_11FillF      0.000      0.340      2142
+aten::sum                                                         0.048      0.314      1720
+_ZN2at6native13reduce_kernelILi512ELi1ENS0_8ReduceOpIfNS0_14      0.000      0.286       860
+_ZN5cudnn17winograd_nonfused20winogradWgradData4x4IffEEvNS0_      0.000      0.228       430
+_ZN5cudnn17winograd_nonfused24winogradForwardOutput4x4IffEEv      0.000      0.188       431
+Optimizer.step#Adam.step                                          0.154      0.124       860

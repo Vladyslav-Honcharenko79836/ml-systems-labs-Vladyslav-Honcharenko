@@ -1,0 +1,4 @@
+setting,device,num_workers,profiled_step_sum_s,unprofiled_epoch_s,data_loading_share,data_loading_timer_share,forward_share,forward_timer_share,backward_share,backward_timer_share,optimizer_step_share,optimizer_step_timer_share,other_share,other_timer_share
+profile-cuda-w0,cuda,0,27.288,16.742,0.6413,0.6734,0.0926,0.0796,0.2396,0.2178,0.0137,0.0171,0.0128,0.0121
+profile-cuda-w4,cuda,4,2.964,2.943,0.0832,0.2725,0.1697,0.1318,0.512,0.4102,0.1241,0.1039,0.1111,0.0816
+profile-cpu-w0,cpu,0,25.682,18.481,0.7068,0.6346,0.1192,0.1509,0.1461,0.1903,0.0215,0.0192,0.0064,0.005
