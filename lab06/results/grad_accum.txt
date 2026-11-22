@@ -1,0 +1,39 @@
+torch 2.14.1+cu126 | device cuda (NVIDIA GeForce GTX 1060 3GB) | CPU threads 8 | python 3.14.2 | Adam lr 0.001, no scheduler, 5 epochs, same seed, same initial weights and same shuffled sample order in every run
+one-step check on the first 256 training images: max |grad(batch 256) - sum of 4 x grad(batch 64)/4| = 6.33e-08 (largest gradient entry 6.44e-02)
+
+[accum-b256] start, run dir data/lab06_runs/accum-b256
+[accum-b256] epoch  1  lr 1.00e-03  train loss 0.6269 acc 0.7811  val loss 0.4356 acc 0.8470  24.2s  2272 samples/s
+[accum-b256] epoch  2  lr 1.00e-03  train loss 0.3862 acc 0.8622  val loss 0.3912 acc 0.8574  3.0s  18637 samples/s
+[accum-b256] epoch  3  lr 1.00e-03  train loss 0.3397 acc 0.8774  val loss 0.3526 acc 0.8782  3.0s  18368 samples/s
+[accum-b256] epoch  4  lr 1.00e-03  train loss 0.3117 acc 0.8882  val loss 0.3259 acc 0.8862  3.0s  18037 samples/s
+[accum-b256] epoch  5  lr 1.00e-03  train loss 0.2899 acc 0.8969  val loss 0.3161 acc 0.8920  3.0s  18115 samples/s
+[accum-b256] test loss 0.3196 acc 0.8860  best val acc 0.8920  peak GPU mem (training) 82.8 MB
+[accum-b64x4] start, run dir data/lab06_runs/accum-b64x4
+[accum-b64x4] epoch  1  lr 1.00e-03  train loss 0.6269 acc 0.7809  val loss 0.4357 acc 0.8468  24.6s  2237 samples/s
+[accum-b64x4] epoch  2  lr 1.00e-03  train loss 0.3862 acc 0.8621  val loss 0.3911 acc 0.8574  3.3s  16843 samples/s
+[accum-b64x4] epoch  3  lr 1.00e-03  train loss 0.3397 acc 0.8772  val loss 0.3525 acc 0.8778  3.2s  16959 samples/s
+[accum-b64x4] epoch  4  lr 1.00e-03  train loss 0.3117 acc 0.8883  val loss 0.3257 acc 0.8858  3.2s  16980 samples/s
+[accum-b64x4] epoch  5  lr 1.00e-03  train loss 0.2898 acc 0.8971  val loss 0.3158 acc 0.8918  3.2s  17214 samples/s
+[accum-b64x4] test loss 0.3195 acc 0.8863  best val acc 0.8918  peak GPU mem (training) 31.4 MB
+[accum-b64] start, run dir data/lab06_runs/accum-b64
+[accum-b64] epoch  1  lr 1.00e-03  train loss 0.4759 acc 0.8304  val loss 0.3844 acc 0.8626  25.1s  2190 samples/s
+[accum-b64] epoch  2  lr 1.00e-03  train loss 0.3242 acc 0.8848  val loss 0.3123 acc 0.8874  3.4s  16265 samples/s
+[accum-b64] epoch  3  lr 1.00e-03  train loss 0.2848 acc 0.8980  val loss 0.2954 acc 0.8902  3.4s  15967 samples/s
+[accum-b64] epoch  4  lr 1.00e-03  train loss 0.2595 acc 0.9062  val loss 0.2821 acc 0.8960  3.3s  16540 samples/s
+[accum-b64] epoch  5  lr 1.00e-03  train loss 0.2417 acc 0.9134  val loss 0.2683 acc 0.9038  3.3s  16467 samples/s
+[accum-b64] test loss 0.2854 acc 0.8958  best val acc 0.9038  peak GPU mem (training) 31.8 MB
+
+run    batch accum  eff. opt steps samples/s  peak MB train loss val acc test acc
+b256     256     1   256      1075    18,242     82.8     0.2899  0.8920   0.8860
+b64x4     64     4   256      1075    16,970     31.4     0.2898  0.8918   0.8863
+b64       64     1    64      4300    16,366     31.8     0.2417  0.9038   0.8958
+
+per-epoch comparison, b256 vs b64x4
+epoch train loss 256 train loss 64x4 val acc 256 val acc 64x4
+    1        0.62689         0.62689      0.8470       0.8468
+    2        0.38622         0.38625      0.8574       0.8574
+    3        0.33966         0.33968      0.8782       0.8778
+    4        0.31174         0.31167      0.8862       0.8858
+    5        0.28988         0.28983      0.8920       0.8918
+per optimizer step (1075 steps): first-epoch max |loss diff| 5.18e-04, whole run max 1.66e-03, mean 2.84e-04
+max |weight diff| after 5 epochs: b256 vs b64x4 1.38e-02, b256 vs b64 (no accumulation) 4.79e-01
