@@ -1,0 +1,45 @@
+1) reference: uninterrupted run, 10 epochs
+    [resume-reference] start, run dir data/lab06_runs/resume-reference
+    [resume-reference] epoch  1  lr 1.00e-03  train loss 0.5279 acc 0.8139  val loss 0.4408 acc 0.8404  23.6s  2333 samples/s
+    [resume-reference] epoch  2  lr 1.00e-03  train loss 0.3524 acc 0.8740  val loss 0.3338 acc 0.8820  3.0s  18155 samples/s
+    [resume-reference] epoch  3  lr 1.00e-03  train loss 0.3080 acc 0.8897  val loss 0.3102 acc 0.8896  3.0s  18110 samples/s
+    [resume-reference] epoch  4  lr 1.00e-03  train loss 0.2847 acc 0.8980  val loss 0.3004 acc 0.8960  3.1s  17672 samples/s
+    [resume-reference] epoch  5  lr 1.00e-03  train loss 0.2645 acc 0.9053  val loss 0.2947 acc 0.8960  3.2s  17342 samples/s
+    [resume-reference] epoch  6  lr 1.00e-03  train loss 0.2502 acc 0.9109  val loss 0.2824 acc 0.8996  3.1s  17905 samples/s
+    [resume-reference] epoch  7  lr 1.00e-03  train loss 0.2382 acc 0.9148  val loss 0.2661 acc 0.9060  3.1s  17988 samples/s
+    [resume-reference] epoch  8  lr 1.00e-03  train loss 0.2273 acc 0.9196  val loss 0.2523 acc 0.9090  3.0s  18161 samples/s
+    [resume-reference] epoch  9  lr 1.00e-03  train loss 0.2166 acc 0.9229  val loss 0.2642 acc 0.9084  3.1s  18005 samples/s
+    [resume-reference] epoch 10  lr 1.00e-03  train loss 0.2092 acc 0.9248  val loss 0.2574 acc 0.9080  3.0s  18118 samples/s
+    [resume-reference] test loss 0.2687 acc 0.9035  best val acc 0.9090  peak GPU mem (training) 47.0 MB
+
+2) same config in a child process, killed (TerminateProcess) once the epoch-3 checkpoint is on disk
+    [resume-interrupted] start, run dir data/lab06_runs/resume-interrupted
+    [resume-interrupted] epoch  1  lr 1.00e-03  train loss 0.5279 acc 0.8139  val loss 0.4408 acc 0.8404  23.3s  2361 samples/s
+    [resume-interrupted] epoch  2  lr 1.00e-03  train loss 0.3524 acc 0.8740  val loss 0.3338 acc 0.8820  3.0s  18195 samples/s
+    [resume-interrupted] epoch  3  lr 1.00e-03  train loss 0.3080 acc 0.8897  val loss 0.3102 acc 0.8896  3.0s  18080 samples/s
+    process killed, exit code 1; checkpoint on disk is from epoch 3; epoch 4 was in progress and is lost
+
+3) resume: train.py --resume data/lab06_runs/resume-interrupted/last.pt
+    [resume-interrupted] resume after epoch 3, run dir data/lab06_runs/resume-interrupted
+    [resume-interrupted] epoch  4  lr 1.00e-03  train loss 0.2847 acc 0.8980  val loss 0.3004 acc 0.8960  23.5s  2338 samples/s
+    [resume-interrupted] epoch  5  lr 1.00e-03  train loss 0.2645 acc 0.9053  val loss 0.2947 acc 0.8960  3.0s  18274 samples/s
+    [resume-interrupted] epoch  6  lr 1.00e-03  train loss 0.2502 acc 0.9109  val loss 0.2824 acc 0.8996  3.0s  18305 samples/s
+    [resume-interrupted] epoch  7  lr 1.00e-03  train loss 0.2382 acc 0.9148  val loss 0.2661 acc 0.9060  3.0s  18300 samples/s
+    [resume-interrupted] epoch  8  lr 1.00e-03  train loss 0.2273 acc 0.9196  val loss 0.2523 acc 0.9090  3.0s  18192 samples/s
+    [resume-interrupted] epoch  9  lr 1.00e-03  train loss 0.2166 acc 0.9229  val loss 0.2642 acc 0.9084  3.0s  18370 samples/s
+    [resume-interrupted] epoch 10  lr 1.00e-03  train loss 0.2092 acc 0.9248  val loss 0.2574 acc 0.9080  3.0s  18243 samples/s
+    [resume-interrupted] test loss 0.2687 acc 0.9035  best val acc 0.9090  peak GPU mem (training) 47.0 MB
+
+epoch source        train_loss   train_acc    val_loss     val_acc          lr   max |diff| vs reference
+    1 interrupted     0.527879    0.813873    0.440834    0.840400    0.001000   0.0e+00
+    2 interrupted     0.352405    0.874000    0.333779    0.882000    0.001000   0.0e+00
+    3 interrupted     0.307995    0.889745    0.310204    0.889600    0.001000   0.0e+00
+    4 resumed         0.284671    0.897964    0.300441    0.896000    0.001000   0.0e+00
+    5 resumed         0.264486    0.905273    0.294678    0.896000    0.001000   0.0e+00
+    6 resumed         0.250245    0.910909    0.282370    0.899600    0.001000   0.0e+00
+    7 resumed         0.238221    0.914836    0.266099    0.906000    0.001000   0.0e+00
+    8 resumed         0.227340    0.919618    0.252336    0.909000    0.001000   0.0e+00
+    9 resumed         0.216618    0.922891    0.264219    0.908400    0.001000   0.0e+00
+   10 resumed         0.209245    0.924800    0.257418    0.908000    0.001000   0.0e+00
+epochs in resumed history: 10 (expected 10); largest difference from the uninterrupted run: 0.0e+00
+the resumed process logs into the same MLflow run (run id stored in the checkpoint)
