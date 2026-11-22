@@ -1,0 +1,14 @@
+torch 2.14.1+cu126 | device cuda (NVIDIA GeForce GTX 1060 3GB) | CPU threads 8 | python 3.14.2
+[base] start, run dir data/lab06_runs/base
+[base] epoch  1  lr 1.00e-03  train loss 0.5279 acc 0.8139  val loss 0.4408 acc 0.8404  22.3s  2471 samples/s
+[base] epoch  2  lr 1.00e-03  train loss 0.3524 acc 0.8740  val loss 0.3338 acc 0.8820  3.0s  18439 samples/s
+[base] epoch  3  lr 1.00e-03  train loss 0.3080 acc 0.8897  val loss 0.3102 acc 0.8896  2.9s  18851 samples/s
+[base] epoch  4  lr 1.00e-03  train loss 0.2847 acc 0.8980  val loss 0.3004 acc 0.8960  2.9s  18736 samples/s
+[base] epoch  5  lr 1.00e-03  train loss 0.2645 acc 0.9053  val loss 0.2947 acc 0.8960  3.0s  18439 samples/s
+[base] epoch  6  lr 1.00e-03  train loss 0.2502 acc 0.9109  val loss 0.2824 acc 0.8996  3.0s  18384 samples/s
+[base] epoch  7  lr 1.00e-03  train loss 0.2382 acc 0.9148  val loss 0.2661 acc 0.9060  3.0s  18612 samples/s
+[base] epoch  8  lr 1.00e-03  train loss 0.2273 acc 0.9196  val loss 0.2523 acc 0.9090  2.9s  18712 samples/s
+[base] epoch  9  lr 1.00e-03  train loss 0.2166 acc 0.9229  val loss 0.2642 acc 0.9084  2.9s  18782 samples/s
+[base] epoch 10  lr 1.00e-03  train loss 0.2092 acc 0.9248  val loss 0.2574 acc 0.9080  3.0s  18600 samples/s
+[base] test loss 0.2687 acc 0.9035  best val acc 0.9090  peak GPU mem (training) 47.0 MB
+mlflow run id b2b3b935198c4de9a5ba6bbfb6d6705e
