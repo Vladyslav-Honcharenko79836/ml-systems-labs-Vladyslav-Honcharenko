@@ -1,0 +1,82 @@
+torch 2.14.1+cu126 | device cuda (NVIDIA GeForce GTX 1060 3GB) | CPU threads 8 | python 3.14.2 | batch 128 | 10 epochs each
+Adam lr 1e-3; SGD lr 0.05 momentum 0.9; StepLR step 4 gamma 0.1; Cosine T_max 10; Plateau on val loss, factor 0.5, patience 1
+[sched-adam-step] start, run dir data/lab06_runs/sched-adam-step
+[sched-adam-step] epoch  1  lr 1.00e-03  train loss 0.5279 acc 0.8139  val loss 0.4408 acc 0.8404  24.2s  2269 samples/s
+[sched-adam-step] epoch  2  lr 1.00e-03  train loss 0.3524 acc 0.8740  val loss 0.3338 acc 0.8820  3.0s  18596 samples/s
+[sched-adam-step] epoch  3  lr 1.00e-03  train loss 0.3080 acc 0.8897  val loss 0.3102 acc 0.8896  2.9s  18645 samples/s
+[sched-adam-step] epoch  4  lr 1.00e-03  train loss 0.2847 acc 0.8980  val loss 0.3004 acc 0.8960  2.9s  18768 samples/s
+[sched-adam-step] epoch  5  lr 1.00e-04  train loss 0.2483 acc 0.9120  val loss 0.2844 acc 0.8996  3.0s  18597 samples/s
+[sched-adam-step] epoch  6  lr 1.00e-04  train loss 0.2433 acc 0.9134  val loss 0.2815 acc 0.9018  2.9s  18810 samples/s
+[sched-adam-step] epoch  7  lr 1.00e-04  train loss 0.2411 acc 0.9148  val loss 0.2801 acc 0.9004  2.9s  18711 samples/s
+[sched-adam-step] epoch  8  lr 1.00e-04  train loss 0.2386 acc 0.9154  val loss 0.2757 acc 0.9036  3.0s  18606 samples/s
+[sched-adam-step] epoch  9  lr 1.00e-05  train loss 0.2335 acc 0.9176  val loss 0.2749 acc 0.9038  2.9s  18788 samples/s
+[sched-adam-step] epoch 10  lr 1.00e-05  train loss 0.2330 acc 0.9184  val loss 0.2748 acc 0.9056  3.0s  18589 samples/s
+[sched-adam-step] test loss 0.2819 acc 0.8983  best val acc 0.9056  peak GPU mem (training) 47.0 MB
+[sched-adam-cosine] start, run dir data/lab06_runs/sched-adam-cosine
+[sched-adam-cosine] epoch  1  lr 1.00e-03  train loss 0.5279 acc 0.8139  val loss 0.4408 acc 0.8404  24.0s  2293 samples/s
+[sched-adam-cosine] epoch  2  lr 9.76e-04  train loss 0.3521 acc 0.8741  val loss 0.3346 acc 0.8804  2.9s  18863 samples/s
+[sched-adam-cosine] epoch  3  lr 9.05e-04  train loss 0.3073 acc 0.8901  val loss 0.3114 acc 0.8908  2.9s  18847 samples/s
+[sched-adam-cosine] epoch  4  lr 7.94e-04  train loss 0.2833 acc 0.8984  val loss 0.3004 acc 0.8952  2.9s  18818 samples/s
+[sched-adam-cosine] epoch  5  lr 6.55e-04  train loss 0.2624 acc 0.9068  val loss 0.3026 acc 0.8930  2.9s  18847 samples/s
+[sched-adam-cosine] epoch  6  lr 5.00e-04  train loss 0.2482 acc 0.9116  val loss 0.2786 acc 0.8986  3.0s  18630 samples/s
+[sched-adam-cosine] epoch  7  lr 3.45e-04  train loss 0.2356 acc 0.9165  val loss 0.2733 acc 0.9048  2.9s  18777 samples/s
+[sched-adam-cosine] epoch  8  lr 2.06e-04  train loss 0.2264 acc 0.9201  val loss 0.2661 acc 0.9052  3.0s  18596 samples/s
+[sched-adam-cosine] epoch  9  lr 9.55e-05  train loss 0.2194 acc 0.9226  val loss 0.2642 acc 0.9068  2.9s  18696 samples/s
+[sched-adam-cosine] epoch 10  lr 2.45e-05  train loss 0.2156 acc 0.9250  val loss 0.2634 acc 0.9080  3.0s  18628 samples/s
+[sched-adam-cosine] test loss 0.2717 acc 0.9028  best val acc 0.9080  peak GPU mem (training) 47.0 MB
+[sched-adam-plateau] start, run dir data/lab06_runs/sched-adam-plateau
+[sched-adam-plateau] epoch  1  lr 1.00e-03  train loss 0.5279 acc 0.8139  val loss 0.4408 acc 0.8404  24.1s  2280 samples/s
+[sched-adam-plateau] epoch  2  lr 1.00e-03  train loss 0.3524 acc 0.8740  val loss 0.3338 acc 0.8820  2.9s  18812 samples/s
+[sched-adam-plateau] epoch  3  lr 1.00e-03  train loss 0.3080 acc 0.8897  val loss 0.3102 acc 0.8896  3.0s  18305 samples/s
+[sched-adam-plateau] epoch  4  lr 1.00e-03  train loss 0.2847 acc 0.8980  val loss 0.3004 acc 0.8960  3.2s  17127 samples/s
+[sched-adam-plateau] epoch  5  lr 1.00e-03  train loss 0.2645 acc 0.9053  val loss 0.2947 acc 0.8960  3.0s  18518 samples/s
+[sched-adam-plateau] epoch  6  lr 1.00e-03  train loss 0.2502 acc 0.9109  val loss 0.2824 acc 0.8996  3.0s  18409 samples/s
+[sched-adam-plateau] epoch  7  lr 1.00e-03  train loss 0.2382 acc 0.9148  val loss 0.2661 acc 0.9060  2.9s  18765 samples/s
+[sched-adam-plateau] epoch  8  lr 1.00e-03  train loss 0.2273 acc 0.9196  val loss 0.2523 acc 0.9090  2.9s  18805 samples/s
+[sched-adam-plateau] epoch  9  lr 1.00e-03  train loss 0.2166 acc 0.9229  val loss 0.2642 acc 0.9084  2.9s  18734 samples/s
+[sched-adam-plateau] epoch 10  lr 1.00e-03  train loss 0.2092 acc 0.9248  val loss 0.2574 acc 0.9080  2.9s  18809 samples/s
+[sched-adam-plateau] test loss 0.2687 acc 0.9035  best val acc 0.9090  peak GPU mem (training) 47.0 MB
+[sched-sgd-step] start, run dir data/lab06_runs/sched-sgd-step
+[sched-sgd-step] epoch  1  lr 5.00e-02  train loss 0.4603 acc 0.8380  val loss 0.3418 acc 0.8756  23.8s  2307 samples/s
+[sched-sgd-step] epoch  2  lr 5.00e-02  train loss 0.3057 acc 0.8920  val loss 0.2961 acc 0.8924  3.0s  18592 samples/s
+[sched-sgd-step] epoch  3  lr 5.00e-02  train loss 0.2676 acc 0.9042  val loss 0.2867 acc 0.8968  2.9s  18794 samples/s
+[sched-sgd-step] epoch  4  lr 5.00e-02  train loss 0.2553 acc 0.9085  val loss 0.2674 acc 0.9028  2.9s  18793 samples/s
+[sched-sgd-step] epoch  5  lr 5.00e-03  train loss 0.1993 acc 0.9290  val loss 0.2505 acc 0.9078  2.9s  18874 samples/s
+[sched-sgd-step] epoch  6  lr 5.00e-03  train loss 0.1901 acc 0.9320  val loss 0.2446 acc 0.9144  2.9s  18744 samples/s
+[sched-sgd-step] epoch  7  lr 5.00e-03  train loss 0.1860 acc 0.9337  val loss 0.2431 acc 0.9138  2.9s  18703 samples/s
+[sched-sgd-step] epoch  8  lr 5.00e-03  train loss 0.1824 acc 0.9343  val loss 0.2394 acc 0.9154  3.0s  18626 samples/s
+[sched-sgd-step] epoch  9  lr 5.00e-04  train loss 0.1747 acc 0.9379  val loss 0.2390 acc 0.9158  2.9s  18701 samples/s
+[sched-sgd-step] epoch 10  lr 5.00e-04  train loss 0.1738 acc 0.9383  val loss 0.2393 acc 0.9154  2.9s  18886 samples/s
+[sched-sgd-step] test loss 0.2572 acc 0.9112  best val acc 0.9158  peak GPU mem (training) 47.0 MB
+[sched-sgd-cosine] start, run dir data/lab06_runs/sched-sgd-cosine
+[sched-sgd-cosine] epoch  1  lr 5.00e-02  train loss 0.4603 acc 0.8380  val loss 0.3418 acc 0.8756  23.8s  2311 samples/s
+[sched-sgd-cosine] epoch  2  lr 4.88e-02  train loss 0.3045 acc 0.8923  val loss 0.2936 acc 0.8924  3.0s  18625 samples/s
+[sched-sgd-cosine] epoch  3  lr 4.52e-02  train loss 0.2650 acc 0.9051  val loss 0.2847 acc 0.8942  2.9s  18878 samples/s
+[sched-sgd-cosine] epoch  4  lr 3.97e-02  train loss 0.2453 acc 0.9117  val loss 0.2657 acc 0.9042  2.9s  18735 samples/s
+[sched-sgd-cosine] epoch  5  lr 3.27e-02  train loss 0.2219 acc 0.9202  val loss 0.2643 acc 0.9050  2.9s  18740 samples/s
+[sched-sgd-cosine] epoch  6  lr 2.50e-02  train loss 0.2038 acc 0.9267  val loss 0.2499 acc 0.9124  2.9s  18762 samples/s
+[sched-sgd-cosine] epoch  7  lr 1.73e-02  train loss 0.1856 acc 0.9336  val loss 0.2479 acc 0.9132  3.0s  18599 samples/s
+[sched-sgd-cosine] epoch  8  lr 1.03e-02  train loss 0.1712 acc 0.9387  val loss 0.2394 acc 0.9136  2.9s  18685 samples/s
+[sched-sgd-cosine] epoch  9  lr 4.77e-03  train loss 0.1594 acc 0.9437  val loss 0.2386 acc 0.9162  2.9s  18713 samples/s
+[sched-sgd-cosine] epoch 10  lr 1.22e-03  train loss 0.1520 acc 0.9466  val loss 0.2379 acc 0.9168  2.9s  18667 samples/s
+[sched-sgd-cosine] test loss 0.2550 acc 0.9156  best val acc 0.9168  peak GPU mem (training) 47.0 MB
+[sched-sgd-plateau] start, run dir data/lab06_runs/sched-sgd-plateau
+[sched-sgd-plateau] epoch  1  lr 5.00e-02  train loss 0.4603 acc 0.8380  val loss 0.3418 acc 0.8756  23.8s  2313 samples/s
+[sched-sgd-plateau] epoch  2  lr 5.00e-02  train loss 0.3057 acc 0.8920  val loss 0.2961 acc 0.8924  2.9s  18763 samples/s
+[sched-sgd-plateau] epoch  3  lr 5.00e-02  train loss 0.2676 acc 0.9042  val loss 0.2867 acc 0.8968  2.9s  18754 samples/s
+[sched-sgd-plateau] epoch  4  lr 5.00e-02  train loss 0.2553 acc 0.9085  val loss 0.2674 acc 0.9028  3.0s  18547 samples/s
+[sched-sgd-plateau] epoch  5  lr 5.00e-02  train loss 0.2374 acc 0.9145  val loss 0.2819 acc 0.9006  2.9s  18835 samples/s
+[sched-sgd-plateau] epoch  6  lr 5.00e-02  train loss 0.2320 acc 0.9151  val loss 0.2716 acc 0.8998  2.9s  18798 samples/s
+[sched-sgd-plateau] epoch  7  lr 2.50e-02  train loss 0.1914 acc 0.9300  val loss 0.2439 acc 0.9128  2.9s  18682 samples/s
+[sched-sgd-plateau] epoch  8  lr 2.50e-02  train loss 0.1842 acc 0.9338  val loss 0.2380 acc 0.9116  2.9s  18665 samples/s
+[sched-sgd-plateau] epoch  9  lr 2.50e-02  train loss 0.1764 acc 0.9355  val loss 0.2528 acc 0.9110  2.9s  18838 samples/s
+[sched-sgd-plateau] epoch 10  lr 2.50e-02  train loss 0.1694 acc 0.9383  val loss 0.2506 acc 0.9156  2.9s  18690 samples/s
+[sched-sgd-plateau] test loss 0.2704 acc 0.9120  best val acc 0.9156  peak GPU mem (training) 47.0 MB
+
+optimizer schedule   lr ep1   lr ep10 train loss val loss val acc best val @ep test acc
+adam      step        1e-03   1.0e-05     0.2330   0.2748  0.9056   0.9056  10   0.8983
+adam      cosine      1e-03   2.4e-05     0.2156   0.2634  0.9080   0.9080  10   0.9028
+adam      plateau     1e-03   1.0e-03     0.2092   0.2574  0.9080   0.9090   8   0.9035
+sgd       step        5e-02   5.0e-04     0.1738   0.2393  0.9154   0.9158   9   0.9112
+sgd       cosine      5e-02   1.2e-03     0.1520   0.2379  0.9168   0.9168  10   0.9156
+sgd       plateau     5e-02   2.5e-02     0.1694   0.2506  0.9156   0.9156  10   0.9120
