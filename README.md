@@ -9,6 +9,7 @@ Individual lab work for *Introduction to Machine Learning Systems* (V. J. Reddi)
 | `lab03` | Architectures and their costs (MLP/CNN/attention) |
 | `lab04` | Data pipeline and quality (UCI Adult)       |
 | `lab05` | Frameworks and automatic differentiation    |
+| `lab06` | Training pipelines and project proposal     |
 
 ## Environment
 
