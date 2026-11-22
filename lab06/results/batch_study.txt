@@ -1,44 +1,44 @@
-torch 2.14.1+cu126 | device cuda (NVIDIA GeForce GTX 1060 3GB) | CPU threads 8 | python 3.14.2 | Adam lr 0.001 (same for every batch), no scheduler, 5 epochs, num_workers 4
+torch 2.3.1+cu121 | device cuda (NVIDIA GeForce GTX 1060 3GB) | CPU threads 8 | python 3.11.8 | Adam lr 0.001 (same for every batch), no scheduler, 5 epochs, num_workers 4
 [batch-32] start, run dir data/lab06_runs/batch-32
-[batch-32] epoch  1  lr 1.00e-03  train loss 0.4379 acc 0.8434  val loss 0.3702 acc 0.8680  27.1s  2028 samples/s
-[batch-32] epoch  2  lr 1.00e-03  train loss 0.3015 acc 0.8927  val loss 0.3025 acc 0.8942  5.5s  9942 samples/s
-[batch-32] epoch  3  lr 1.00e-03  train loss 0.2618 acc 0.9067  val loss 0.2761 acc 0.9010  5.5s  9938 samples/s
-[batch-32] epoch  4  lr 1.00e-03  train loss 0.2379 acc 0.9134  val loss 0.2746 acc 0.9036  5.8s  9558 samples/s
-[batch-32] epoch  5  lr 1.00e-03  train loss 0.2194 acc 0.9207  val loss 0.2511 acc 0.9088  5.6s  9843 samples/s
-[batch-32] test loss 0.2607 acc 0.9079  best val acc 0.9088  peak GPU mem (training) 25.5 MB
+[batch-32] epoch  1  lr 1.00e-03  train loss 0.4382 acc 0.8435  val loss 0.3696 acc 0.8674  27.1s  2027 samples/s
+[batch-32] epoch  2  lr 1.00e-03  train loss 0.3015 acc 0.8922  val loss 0.3031 acc 0.8950  6.4s  8622 samples/s
+[batch-32] epoch  3  lr 1.00e-03  train loss 0.2613 acc 0.9072  val loss 0.2788 acc 0.8986  6.5s  8463 samples/s
+[batch-32] epoch  4  lr 1.00e-03  train loss 0.2371 acc 0.9139  val loss 0.2752 acc 0.8990  6.5s  8445 samples/s
+[batch-32] epoch  5  lr 1.00e-03  train loss 0.2188 acc 0.9209  val loss 0.2508 acc 0.9076  6.4s  8623 samples/s
+[batch-32] test loss 0.2605 acc 0.9060  best val acc 0.9076  peak GPU mem (training) 25.5 MB
 [batch-64] start, run dir data/lab06_runs/batch-64
-[batch-64] epoch  1  lr 1.00e-03  train loss 0.4759 acc 0.8304  val loss 0.3844 acc 0.8626  24.3s  2261 samples/s
-[batch-64] epoch  2  lr 1.00e-03  train loss 0.3242 acc 0.8848  val loss 0.3123 acc 0.8874  3.3s  16590 samples/s
-[batch-64] epoch  3  lr 1.00e-03  train loss 0.2848 acc 0.8980  val loss 0.2954 acc 0.8902  3.3s  16568 samples/s
-[batch-64] epoch  4  lr 1.00e-03  train loss 0.2595 acc 0.9062  val loss 0.2821 acc 0.8960  3.3s  16752 samples/s
-[batch-64] epoch  5  lr 1.00e-03  train loss 0.2417 acc 0.9134  val loss 0.2683 acc 0.9038  3.3s  16441 samples/s
-[batch-64] test loss 0.2854 acc 0.8958  best val acc 0.9038  peak GPU mem (training) 32.4 MB
+[batch-64] epoch  1  lr 1.00e-03  train loss 0.4759 acc 0.8302  val loss 0.3832 acc 0.8618  24.5s  2248 samples/s
+[batch-64] epoch  2  lr 1.00e-03  train loss 0.3240 acc 0.8848  val loss 0.3134 acc 0.8878  3.4s  16244 samples/s
+[batch-64] epoch  3  lr 1.00e-03  train loss 0.2848 acc 0.8980  val loss 0.2931 acc 0.8918  3.6s  15208 samples/s
+[batch-64] epoch  4  lr 1.00e-03  train loss 0.2595 acc 0.9062  val loss 0.2804 acc 0.8968  3.6s  15420 samples/s
+[batch-64] epoch  5  lr 1.00e-03  train loss 0.2412 acc 0.9133  val loss 0.2687 acc 0.9024  3.5s  15573 samples/s
+[batch-64] test loss 0.2852 acc 0.8956  best val acc 0.9024  peak GPU mem (training) 32.4 MB
 [batch-128] start, run dir data/lab06_runs/batch-128
-[batch-128] epoch  1  lr 1.00e-03  train loss 0.5279 acc 0.8139  val loss 0.4408 acc 0.8404  24.1s  2278 samples/s
-[batch-128] epoch  2  lr 1.00e-03  train loss 0.3524 acc 0.8740  val loss 0.3338 acc 0.8820  2.9s  18815 samples/s
-[batch-128] epoch  3  lr 1.00e-03  train loss 0.3080 acc 0.8897  val loss 0.3102 acc 0.8896  2.9s  18742 samples/s
-[batch-128] epoch  4  lr 1.00e-03  train loss 0.2847 acc 0.8980  val loss 0.3004 acc 0.8960  2.9s  18774 samples/s
-[batch-128] epoch  5  lr 1.00e-03  train loss 0.2645 acc 0.9053  val loss 0.2947 acc 0.8960  3.0s  18153 samples/s
-[batch-128] test loss 0.3042 acc 0.8903  best val acc 0.8960  peak GPU mem (training) 46.8 MB
+[batch-128] epoch  1  lr 1.00e-03  train loss 0.5279 acc 0.8139  val loss 0.4407 acc 0.8408  22.5s  2441 samples/s
+[batch-128] epoch  2  lr 1.00e-03  train loss 0.3524 acc 0.8737  val loss 0.3342 acc 0.8800  3.0s  18381 samples/s
+[batch-128] epoch  3  lr 1.00e-03  train loss 0.3081 acc 0.8896  val loss 0.3106 acc 0.8900  3.0s  18045 samples/s
+[batch-128] epoch  4  lr 1.00e-03  train loss 0.2846 acc 0.8978  val loss 0.2997 acc 0.8964  3.0s  18118 samples/s
+[batch-128] epoch  5  lr 1.00e-03  train loss 0.2643 acc 0.9053  val loss 0.2953 acc 0.8954  3.0s  18622 samples/s
+[batch-128] test loss 0.3044 acc 0.8903  best val acc 0.8964  peak GPU mem (training) 46.8 MB
 [batch-256] start, run dir data/lab06_runs/batch-256
-[batch-256] epoch  1  lr 1.00e-03  train loss 0.6269 acc 0.7811  val loss 0.4356 acc 0.8470  23.8s  2310 samples/s
-[batch-256] epoch  2  lr 1.00e-03  train loss 0.3862 acc 0.8622  val loss 0.3912 acc 0.8574  2.9s  18916 samples/s
-[batch-256] epoch  3  lr 1.00e-03  train loss 0.3397 acc 0.8774  val loss 0.3526 acc 0.8782  2.9s  18791 samples/s
-[batch-256] epoch  4  lr 1.00e-03  train loss 0.3117 acc 0.8882  val loss 0.3259 acc 0.8862  2.9s  19004 samples/s
-[batch-256] epoch  5  lr 1.00e-03  train loss 0.2899 acc 0.8969  val loss 0.3161 acc 0.8920  2.9s  18992 samples/s
-[batch-256] test loss 0.3196 acc 0.8860  best val acc 0.8920  peak GPU mem (training) 82.0 MB
+[batch-256] epoch  1  lr 1.00e-03  train loss 0.6269 acc 0.7810  val loss 0.4357 acc 0.8466  22.6s  2429 samples/s
+[batch-256] epoch  2  lr 1.00e-03  train loss 0.3862 acc 0.8623  val loss 0.3913 acc 0.8580  2.9s  18710 samples/s
+[batch-256] epoch  3  lr 1.00e-03  train loss 0.3396 acc 0.8772  val loss 0.3526 acc 0.8778  2.9s  18653 samples/s
+[batch-256] epoch  4  lr 1.00e-03  train loss 0.3116 acc 0.8885  val loss 0.3259 acc 0.8858  3.0s  18594 samples/s
+[batch-256] epoch  5  lr 1.00e-03  train loss 0.2899 acc 0.8971  val loss 0.3159 acc 0.8922  3.0s  18541 samples/s
+[batch-256] test loss 0.3196 acc 0.8862  best val acc 0.8922  peak GPU mem (training) 82.0 MB
 [batch-512] start, run dir data/lab06_runs/batch-512
-[batch-512] epoch  1  lr 1.00e-03  train loss 0.7539 acc 0.7504  val loss 0.4905 acc 0.8238  23.8s  2306 samples/s
-[batch-512] epoch  2  lr 1.00e-03  train loss 0.4253 acc 0.8496  val loss 0.4189 acc 0.8520  2.9s  19068 samples/s
-[batch-512] epoch  3  lr 1.00e-03  train loss 0.3834 acc 0.8629  val loss 0.3908 acc 0.8630  2.9s  18878 samples/s
-[batch-512] epoch  4  lr 1.00e-03  train loss 0.3474 acc 0.8770  val loss 0.3567 acc 0.8774  2.9s  18677 samples/s
-[batch-512] epoch  5  lr 1.00e-03  train loss 0.3286 acc 0.8824  val loss 0.3387 acc 0.8798  2.9s  18988 samples/s
-[batch-512] test loss 0.3408 acc 0.8761  best val acc 0.8798  peak GPU mem (training) 146.4 MB
+[batch-512] epoch  1  lr 1.00e-03  train loss 0.7539 acc 0.7505  val loss 0.4905 acc 0.8236  22.7s  2426 samples/s
+[batch-512] epoch  2  lr 1.00e-03  train loss 0.4253 acc 0.8495  val loss 0.4189 acc 0.8518  3.0s  18453 samples/s
+[batch-512] epoch  3  lr 1.00e-03  train loss 0.3834 acc 0.8628  val loss 0.3904 acc 0.8630  3.3s  16779 samples/s
+[batch-512] epoch  4  lr 1.00e-03  train loss 0.3473 acc 0.8770  val loss 0.3567 acc 0.8772  3.0s  18366 samples/s
+[batch-512] epoch  5  lr 1.00e-03  train loss 0.3286 acc 0.8823  val loss 0.3387 acc 0.8804  3.0s  18264 samples/s
+[batch-512] test loss 0.3408 acc 0.8760  best val acc 0.8804  peak GPU mem (training) 146.4 MB
 
 batch steps/ep samples/s GPU-only/s  peak MB train loss val acc test acc
-   32     1719     9,891     12,459     25.5     0.2194  0.9088   0.9079
-   64      860    16,579     25,035     32.4     0.2417  0.9038   0.8958
-  128      430    18,758     43,103     46.8     0.2645  0.8960   0.8903
-  256      215    18,954     47,442     82.0     0.2899  0.8920   0.8860
-  512      108    18,933     50,469    146.4     0.3286  0.8798   0.8761
+   32     1719     8,543      9,274     25.5     0.2188  0.9076   0.9060
+   64      860    15,497     18,832     32.4     0.2412  0.9024   0.8956
+  128      430    18,249     38,862     46.8     0.2643  0.8954   0.8903
+  256      215    18,623     45,008     82.0     0.2899  0.8922   0.8862
+  512      108    18,315     48,210    146.4     0.3286  0.8804   0.8760
 samples/s = median of epochs 2-5 with the real DataLoader; GPU-only/s = same model and batch, data already on the GPU; peak MB = torch.cuda.max_memory_allocated during training

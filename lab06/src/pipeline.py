@@ -117,9 +117,7 @@ class Tracker:
         self.mlflow = mlflow
         store = resolve(cfg["paths"]["mlflow_dir"])
         store.mkdir(parents=True, exist_ok=True)
-        mlflow.set_tracking_uri("sqlite:///" + (store / "mlflow.db").as_posix())
-        if mlflow.get_experiment_by_name(cfg["experiment"]) is None:
-            mlflow.create_experiment(cfg["experiment"], artifact_location=(store / "artifacts").as_uri())
+        mlflow.set_tracking_uri(store.as_uri())
         mlflow.set_experiment(cfg["experiment"])
         if run_id:
             run = mlflow.start_run(run_id=run_id)

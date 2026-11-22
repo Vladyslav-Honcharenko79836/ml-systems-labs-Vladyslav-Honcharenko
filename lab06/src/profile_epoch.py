@@ -1,6 +1,8 @@
+import gc
 import time
 from collections import defaultdict
 
+import torch
 from torch import nn
 from torch.autograd import DeviceType
 from torch.profiler import ProfilerActivity, profile, schedule
@@ -12,11 +14,12 @@ from models import build_model
 from pipeline import Tracker, build_optimizer, profiler_regions, timer_regions, train_epoch
 
 LABELS = ["data_loading", "forward", "backward", "optimizer_step"]
-SETTINGS = [("cuda", 0), ("cuda", 4), ("cpu", 0)]
+SETTINGS = [("cpu", 0), ("cuda", 0), ("cuda", 4)]
 CHUNK = 10
 
 
 def profile_one(cfg):
+    gc.collect()
     device = pick_device(cfg["device"])
     seed_everything(cfg["seed"], cfg["deterministic"])
     model = build_model(cfg).to(device)
@@ -48,7 +51,7 @@ def profile_one(cfg):
             if e.key not in LABELS and not e.key.startswith("ProfilerStep"):
                 o = ops[e.key]
                 o[0] += e.self_cpu_time_total
-                o[1] += e.self_device_time_total
+                o[1] += getattr(e, "self_device_time_total", None) or getattr(e, "self_cuda_time_total", 0)
                 o[2] += e.count
 
     activities = [ProfilerActivity.CPU] + ([ProfilerActivity.CUDA] if device.type == "cuda" else [])
@@ -61,7 +64,8 @@ def profile_one(cfg):
     lines += [f"{k[:60]:<60} {v[0] / 1e6:>10.3f} {v[1] / 1e6:>10.3f} {v[2]:>9}" for k, v in top[:25]]
     prof_s = {k: region_us[k] / 1e6 for k in LABELS}
     return {"timer_wall": timer_wall, "timer_s": timer_s, "prof_s": prof_s, "calls": dict(region_calls),
-            "steps": step["n"], "step_s": step["us"] / 1e6, "table": "\n".join(lines)}
+            "steps": step["n"], "step_s": step["us"] / 1e6, "table": "\n".join(lines),
+            "threads": torch.get_num_threads()}
 
 
 if __name__ == "__main__":
@@ -77,12 +81,13 @@ if __name__ == "__main__":
             name = f"profile-{dev}-w{workers}"
             cfg = with_overrides(base, device=dev, data__num_workers=workers, run_name=name)
             device = pick_device(dev)
+            seed_everything(cfg["seed"], cfg["deterministic"])
             print(f"\n== {name}: {env_line(device)}, batch {cfg['data']['batch_size']}, num_workers {workers}",
                   flush=True)
             r = profile_one(cfg)
             total, twall = r["step_s"], r["timer_wall"]
             print(f"profiled steps {r['steps']}, sum of step times {total:.2f} s | "
-                  f"unprofiled epoch {twall:.2f} s")
+                  f"unprofiled epoch {twall:.2f} s | intra-op threads at the end {r['threads']}")
             print(f"{'region':<16} {'calls':>6} {'profiler s':>10} {'share':>7}   {'timer s':>8} {'share':>7}")
             row = {"setting": name, "device": dev, "num_workers": workers, "profiled_step_sum_s": round(total, 3),
                    "unprofiled_epoch_s": round(twall, 3)}

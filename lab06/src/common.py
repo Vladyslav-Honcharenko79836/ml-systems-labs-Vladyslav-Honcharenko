@@ -12,6 +12,7 @@ LAB_DIR = Path(__file__).resolve().parents[1]
 ROOT = LAB_DIR.parent
 RESULTS_DIR = LAB_DIR / "results"
 DEFAULT_CONFIG = LAB_DIR / "config.yaml"
+DEFAULT_THREADS = torch.get_num_threads()
 
 
 def load_config(path=DEFAULT_CONFIG, overrides=()):
@@ -57,6 +58,7 @@ def resolve(path):
 
 
 def seed_everything(seed, deterministic=True):
+    torch.set_num_threads(DEFAULT_THREADS)
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)

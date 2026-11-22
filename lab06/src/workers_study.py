@@ -1,3 +1,4 @@
+import gc
 import statistics
 import time
 
@@ -48,6 +49,7 @@ def compute_only(cfg):
 
 
 def measure(cfg):
+    gc.collect()
     device, model, opt, loss_fn = setup(cfg)
     t0 = time.perf_counter()
     loader, _, _, _ = build_data(cfg, device)
@@ -57,7 +59,7 @@ def measure(cfg):
     del it
     epochs = [timed(lambda: train_epoch(model, loader, opt, loss_fn, device)) for _ in range(TRAIN_EPOCHS)]
     passes = [timed(lambda: data_pass(loader, device)) for _ in range(DATA_PASSES)]
-    return first_batch_s, epochs, passes
+    return first_batch_s, epochs, passes, torch.get_num_threads()
 
 
 if __name__ == "__main__":
@@ -73,25 +75,25 @@ if __name__ == "__main__":
         print(f"compute only (whole train set pre-loaded as tensors, no DataLoader): "
               f"GPU {gpu_compute:.2f} s/epoch ({n / gpu_compute:,.0f} samples/s), "
               f"CPU {cpu_compute:.2f} s/epoch ({n / cpu_compute:,.0f} samples/s)\n", flush=True)
-        print(f"{'device':<6} {'workers':>7} {'1st batch s':>11} {'epoch 1 s':>9} {'epoch s':>8} "
+        print(f"{'device':<6} {'workers':>7} {'threads':>7} {'1st batch s':>11} {'epoch 1 s':>9} {'epoch s':>8} "
               f"{'samples/s':>9} {'data-only s':>11} {'data samples/s':>14}")
-        for dev in ("cuda", "cpu"):
+        for dev in ("cpu", "cuda"):
             for w in WORKERS:
                 cfg = with_overrides(base, device=dev, data__num_workers=w, run_name=f"workers-{dev}-w{w}")
-                first, epochs, passes = measure(cfg)
+                first, epochs, passes, threads = measure(cfg)
                 ep, dp = statistics.median(epochs[1:]), statistics.median(passes)
-                row = {"device": dev, "num_workers": w, "first_batch_s": round(first, 3),
+                row = {"device": dev, "num_workers": w, "threads": threads, "first_batch_s": round(first, 3),
                        "epoch1_s": round(epochs[0], 3), "epoch_s": round(ep, 3),
                        "samples_per_s": round(n / ep), "data_only_s": round(dp, 3),
                        "data_samples_per_s": round(n / dp),
                        "compute_only_s": round(gpu_compute if dev == "cuda" else cpu_compute, 3)}
                 rows.append(row)
-                print(f"{dev:<6} {w:>7} {first:>11.2f} {epochs[0]:>9.2f} {ep:>8.2f} {n / ep:>9,.0f} "
+                print(f"{dev:<6} {w:>7} {threads:>7} {first:>11.2f} {epochs[0]:>9.2f} {ep:>8.2f} {n / ep:>9,.0f} "
                       f"{dp:>11.2f} {n / dp:>14,.0f}", flush=True)
                 tracker = Tracker(cfg, run_name=cfg["run_name"])
                 tracker.params({"device": dev, "data.num_workers": w, "data.batch_size": cfg["data"]["batch_size"],
                                 "kind": "workers_study"})
-                tracker.metrics({k: v for k, v in row.items() if k not in ("device", "num_workers")})
+                tracker.metrics({k: v for k, v in row.items() if k not in ("device", "num_workers", "threads")})
                 tracker.end()
     write_csv(rows, "workers_study.csv")
 

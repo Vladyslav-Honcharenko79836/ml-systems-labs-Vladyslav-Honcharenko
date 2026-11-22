@@ -8,7 +8,7 @@ METRICS = ["test_acc", "best_val_acc", "val_acc", "peak_mem_mb", "samples_per_s"
 
 if __name__ == "__main__":
     cfg = load_config()
-    mlflow.set_tracking_uri("sqlite:///" + (resolve(cfg["paths"]["mlflow_dir"]) / "mlflow.db").as_posix())
+    mlflow.set_tracking_uri(resolve(cfg["paths"]["mlflow_dir"]).as_uri())
     df = mlflow.search_runs(experiment_names=[cfg["experiment"]], order_by=["start_time ASC"])
     df = df[df["tags.mlflow.runName"] != "smoke"].drop_duplicates("tags.mlflow.runName", keep="last")
     cols = {"tags.mlflow.runName": "run", "status": "status"}
@@ -17,6 +17,6 @@ if __name__ == "__main__":
     out = df[list(cols) + ["run_id"]].rename(columns=cols)
     out.to_csv(RESULTS_DIR / "mlflow_runs.csv", index=False)
     with tee_results("mlflow_runs.txt"):
-        print(f"experiment '{cfg['experiment']}', tracking store {cfg['paths']['mlflow_dir']}/mlflow.db, "
+        print(f"experiment '{cfg['experiment']}', tracking store {cfg['paths']['mlflow_dir']}/, "
               f"{len(out)} runs")
         print(out.drop(columns=["run_id"]).to_string(index=False, float_format=lambda v: f"{v:.4g}"))

@@ -1,32 +1,32 @@
-experiment 'lab06-fashion-cnn', tracking store lab06/mlruns/mlflow.db, 30 runs
+experiment 'lab06-fashion-cnn', tracking store lab06/mlruns/, 30 runs
                run   status device data.batch_size data.num_workers optim.name optim.lr sched.name train.epochs train.accum_steps  test_acc  best_val_acc  val_acc  peak_mem_mb  samples_per_s  epoch_s
-   profile-cuda-w0 FINISHED   cuda             128                0        NaN      NaN        NaN          NaN               NaN       NaN           NaN      NaN          NaN            NaN    16.74
-   profile-cuda-w4 FINISHED   cuda             128                4        NaN      NaN        NaN          NaN               NaN       NaN           NaN      NaN          NaN            NaN    2.943
-    profile-cpu-w0 FINISHED    cpu             128                0        NaN      NaN        NaN          NaN               NaN       NaN           NaN      NaN          NaN            NaN    18.48
-              base FINISHED   auto             128                4       adam    0.001       none           10                 1    0.9035         0.909    0.908        46.96       1.86e+04      NaN
-   workers-cuda-w0 FINISHED   cuda             128                0        NaN      NaN        NaN          NaN               NaN       NaN           NaN      NaN          NaN           4414    12.46
-   workers-cuda-w1 FINISHED   cuda             128                1        NaN      NaN        NaN          NaN               NaN       NaN           NaN      NaN          NaN           5007    10.98
-   workers-cuda-w2 FINISHED   cuda             128                2        NaN      NaN        NaN          NaN               NaN       NaN           NaN      NaN          NaN           9879    5.567
-   workers-cuda-w4 FINISHED   cuda             128                4        NaN      NaN        NaN          NaN               NaN       NaN           NaN      NaN          NaN      1.871e+04    2.939
-   workers-cuda-w8 FINISHED   cuda             128                8        NaN      NaN        NaN          NaN               NaN       NaN           NaN      NaN          NaN      3.186e+04    1.726
-    workers-cpu-w0 FINISHED    cpu             128                0        NaN      NaN        NaN          NaN               NaN       NaN           NaN      NaN          NaN           2952    18.63
-    workers-cpu-w1 FINISHED    cpu             128                1        NaN      NaN        NaN          NaN               NaN       NaN           NaN      NaN          NaN           4616    11.91
-    workers-cpu-w2 FINISHED    cpu             128                2        NaN      NaN        NaN          NaN               NaN       NaN           NaN      NaN          NaN           7501    7.332
-    workers-cpu-w4 FINISHED    cpu             128                4        NaN      NaN        NaN          NaN               NaN       NaN           NaN      NaN          NaN           7474    7.359
-    workers-cpu-w8 FINISHED    cpu             128                8        NaN      NaN        NaN          NaN               NaN       NaN           NaN      NaN          NaN           7515    7.319
-          batch-32 FINISHED   auto              32                4       adam    0.001       none            5                 1    0.9079        0.9088   0.9088        25.47           9843      NaN
-          batch-64 FINISHED   auto              64                4       adam    0.001       none            5                 1    0.8958        0.9038   0.9038        32.43      1.644e+04      NaN
-         batch-128 FINISHED   auto             128                4       adam    0.001       none            5                 1    0.8903         0.896    0.896        46.82      1.815e+04      NaN
-         batch-256 FINISHED   auto             256                4       adam    0.001       none            5                 1     0.886         0.892    0.892        81.97      1.899e+04      NaN
-         batch-512 FINISHED   auto             512                4       adam    0.001       none            5                 1    0.8761        0.8798   0.8798        146.4      1.899e+04      NaN
-   sched-adam-step FINISHED   auto             128                4       adam    0.001       step           10                 1    0.8983        0.9056   0.9056        46.96      1.859e+04      NaN
- sched-adam-cosine FINISHED   auto             128                4       adam    0.001     cosine           10                 1    0.9028         0.908    0.908        47.04      1.863e+04      NaN
-sched-adam-plateau FINISHED   auto             128                4       adam    0.001    plateau           10                 1    0.9035         0.909    0.908        47.04      1.881e+04      NaN
-    sched-sgd-step FINISHED   auto             128                4        sgd     0.05       step           10                 1    0.9112        0.9158   0.9154        46.96      1.889e+04      NaN
-  sched-sgd-cosine FINISHED   auto             128                4        sgd     0.05     cosine           10                 1    0.9156        0.9168   0.9168        46.96      1.867e+04      NaN
- sched-sgd-plateau FINISHED   auto             128                4        sgd     0.05    plateau           10                 1     0.912        0.9156   0.9156        46.96      1.869e+04      NaN
-  resume-reference FINISHED   auto             128                4       adam    0.001       none           10                 1    0.9035         0.909    0.908        46.96      1.812e+04      NaN
-resume-interrupted FINISHED   auto             128                4       adam    0.001       none           10                 1    0.9035         0.909    0.908        46.96      1.824e+04      NaN
-        accum-b256 FINISHED   auto             256                4       adam    0.001       none            5                 1     0.886         0.892    0.892        82.77      1.812e+04      NaN
-       accum-b64x4 FINISHED   auto              64                4       adam    0.001       none            5                 4    0.8863        0.8918   0.8918        31.45      1.721e+04      NaN
-         accum-b64 FINISHED   auto              64                4       adam    0.001       none            5                 1    0.8958        0.9038   0.9038        31.82      1.647e+04      NaN
+              base FINISHED   auto             128                4       adam    0.001       none           10                 1    0.9042        0.9094    0.908        46.96      1.817e+04      NaN
+          batch-32 FINISHED   auto              32                4       adam    0.001       none            5                 1     0.906        0.9076   0.9076        25.47           8623      NaN
+          batch-64 FINISHED   auto              64                4       adam    0.001       none            5                 1    0.8956        0.9024   0.9024        32.43      1.557e+04      NaN
+         batch-128 FINISHED   auto             128                4       adam    0.001       none            5                 1    0.8903        0.8964   0.8954        46.82      1.862e+04      NaN
+         batch-256 FINISHED   auto             256                4       adam    0.001       none            5                 1    0.8862        0.8922   0.8922        81.97      1.854e+04      NaN
+         batch-512 FINISHED   auto             512                4       adam    0.001       none            5                 1     0.876        0.8804   0.8804        146.4      1.826e+04      NaN
+   sched-adam-step FINISHED   auto             128                4       adam    0.001       step           10                 1    0.8978        0.9052   0.9052        46.96      1.851e+04      NaN
+ sched-adam-cosine FINISHED   auto             128                4       adam    0.001     cosine           10                 1    0.9022        0.9072   0.9072        47.04      1.843e+04      NaN
+sched-adam-plateau FINISHED   auto             128                4       adam    0.001    plateau           10                 1    0.9042        0.9094    0.908        47.04      1.855e+04      NaN
+    sched-sgd-step FINISHED   auto             128                4        sgd     0.05       step           10                 1    0.9127         0.916    0.916        46.96      1.863e+04      NaN
+  sched-sgd-cosine FINISHED   auto             128                4        sgd     0.05     cosine           10                 1    0.9152        0.9196   0.9188        46.96       1.82e+04      NaN
+ sched-sgd-plateau FINISHED   auto             128                4        sgd     0.05    plateau           10                 1    0.9099        0.9166   0.9136        46.96       1.86e+04      NaN
+        accum-b256 FINISHED   auto             256                4       adam    0.001       none            5                 1    0.8862        0.8922   0.8922        82.77      1.866e+04      NaN
+       accum-b64x4 FINISHED   auto              64                4       adam    0.001       none            5                 4    0.8864        0.8922   0.8922        31.45      1.688e+04      NaN
+         accum-b64 FINISHED   auto              64                4       adam    0.001       none            5                 1    0.8956        0.9024   0.9024        31.82      1.715e+04      NaN
+  resume-reference FINISHED   auto             128                4       adam    0.001       none           10                 1    0.9042        0.9094    0.908        46.96      1.841e+04      NaN
+resume-interrupted FINISHED   auto             128                4       adam    0.001       none           10                 1    0.9042        0.9094    0.908        46.96      1.861e+04      NaN
+    workers-cpu-w0 FINISHED    cpu             128                0       None     None       None         None              None       NaN           NaN      NaN          NaN           2340     23.5
+    workers-cpu-w1 FINISHED    cpu             128                1       None     None       None         None              None       NaN           NaN      NaN          NaN           3630    15.15
+    workers-cpu-w2 FINISHED    cpu             128                2       None     None       None         None              None       NaN           NaN      NaN          NaN           4204    13.08
+    workers-cpu-w4 FINISHED    cpu             128                4       None     None       None         None              None       NaN           NaN      NaN          NaN           4195    13.11
+    workers-cpu-w8 FINISHED    cpu             128                8       None     None       None         None              None       NaN           NaN      NaN          NaN           3889    14.14
+   workers-cuda-w0 FINISHED   cuda             128                0       None     None       None         None              None       NaN           NaN      NaN          NaN           4153    13.24
+   workers-cuda-w1 FINISHED   cuda             128                1       None     None       None         None              None       NaN           NaN      NaN          NaN           4852    11.34
+   workers-cuda-w2 FINISHED   cuda             128                2       None     None       None         None              None       NaN           NaN      NaN          NaN           9689    5.677
+   workers-cuda-w4 FINISHED   cuda             128                4       None     None       None         None              None       NaN           NaN      NaN          NaN      1.852e+04     2.97
+   workers-cuda-w8 FINISHED   cuda             128                8       None     None       None         None              None       NaN           NaN      NaN          NaN      3.167e+04    1.737
+    profile-cpu-w0 FINISHED    cpu             128                0       None     None       None         None              None       NaN           NaN      NaN          NaN            NaN     21.6
+   profile-cuda-w0 FINISHED   cuda             128                0       None     None       None         None              None       NaN           NaN      NaN          NaN            NaN    17.38
+   profile-cuda-w4 FINISHED   cuda             128                4       None     None       None         None              None       NaN           NaN      NaN          NaN            NaN    2.971
