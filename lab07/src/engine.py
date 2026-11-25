@@ -63,7 +63,7 @@ def ce_loss(out, y, extra):
 
 
 def train_model(model, batches, epochs, lr, momentum, weight_decay, device, loss_fn=ce_loss,
-                val=None, after_step=None, log=None):
+                val=None, after_step=None, log=None, clip=None):
     opt = torch.optim.SGD(model.parameters(), lr=lr, momentum=momentum, weight_decay=weight_decay)
     sched = CosineAnnealingLR(opt, T_max=epochs * len(batches))
     history = []
@@ -78,6 +78,8 @@ def train_model(model, batches, epochs, lr, momentum, weight_decay, device, loss
             loss = loss_fn(out, y, extra)
             opt.zero_grad(set_to_none=True)
             loss.backward()
+            if clip:
+                torch.nn.utils.clip_grad_norm_(model.parameters(), clip)
             opt.step()
             sched.step()
             if after_step is not None:

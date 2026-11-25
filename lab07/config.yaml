@@ -32,7 +32,10 @@ distill:
   widths: [16, 32, 32]
   hidden: 56
   epochs: 15
-  lr: 0.02
+  lr: {plain: 0.04, kd: 0.04, kd_forward: 0.04}
+  grad_clip: 5.0
+  tune_lrs: [0.0025, 0.005, 0.01, 0.02, 0.04]
+  tune_seeds: [7, 8]
   temperature: 4.0
   alpha: 0.5
   seeds: [42, 43, 44, 45, 46]

@@ -1,0 +1,43 @@
+python 3.11.8 | torch 2.3.1+cu121 | GPU NVIDIA GeForce GTX 1060 3GB | CPU threads 8
+learning-rate search on the validation set only, seeds [7, 8] (not used in the final runs); 15 epochs; the test set is not touched
+  plain      lr 0.0025  seed 7  train acc 0.8904  val acc 0.8820  val CE 0.3315  28.3 s
+  plain      lr 0.0025  seed 8  train acc 0.8943  val acc 0.8832  val CE 0.3261  28.9 s
+  plain      lr 0.005   seed 7  train acc 0.9086  val acc 0.8990  val CE 0.2816  28.9 s
+  plain      lr 0.005   seed 8  train acc 0.9161  val acc 0.8986  val CE 0.2762  34.7 s
+  plain      lr 0.01    seed 7  train acc 0.9325  val acc 0.9114  val CE 0.2419  28.6 s
+  plain      lr 0.01    seed 8  train acc 0.9354  val acc 0.9172  val CE 0.2320  28.4 s
+  plain      lr 0.02    seed 7  train acc 0.9507  val acc 0.9238  val CE 0.2257  28.2 s
+  plain      lr 0.02    seed 8  train acc 0.9528  val acc 0.9234  val CE 0.2159  28.4 s
+  plain      lr 0.04    seed 7  train acc 0.9471  val acc 0.9190  val CE 0.2290  29.0 s
+  plain      lr 0.04    seed 8  train acc 0.9708  val acc 0.9248  val CE 0.2165  28.4 s
+  kd         lr 0.0025  seed 7  train acc 0.9134  val acc 0.9018  val CE 0.3120  29.9 s
+  kd         lr 0.0025  seed 8  train acc 0.9211  val acc 0.9048  val CE 0.2882  30.1 s
+  kd         lr 0.005   seed 7  train acc 0.9317  val acc 0.9112  val CE 0.2565  29.5 s
+  kd         lr 0.005   seed 8  train acc 0.9317  val acc 0.9176  val CE 0.2495  29.4 s
+  kd         lr 0.01    seed 7  train acc 0.9290  val acc 0.9166  val CE 0.2580  29.5 s
+  kd         lr 0.01    seed 8  train acc 0.9402  val acc 0.9234  val CE 0.2354  29.9 s
+  kd         lr 0.02    seed 7  train acc 0.9309  val acc 0.9124  val CE 0.2581  30.1 s
+  kd         lr 0.02    seed 8  train acc 0.9252  val acc 0.9100  val CE 0.2651  30.3 s
+  kd         lr 0.04    seed 7  train acc 0.1002  val acc 0.0980  val CE 2.3645  30.9 s
+  kd         lr 0.04    seed 8  train acc 0.1002  val acc 0.0980  val CE 2.3642  30.4 s
+  kd_forward lr 0.0025  seed 7  train acc 0.9143  val acc 0.9034  val CE 0.2914  29.9 s
+  kd_forward lr 0.0025  seed 8  train acc 0.9203  val acc 0.9048  val CE 0.2875  29.6 s
+  kd_forward lr 0.005   seed 7  train acc 0.9311  val acc 0.9156  val CE 0.2504  29.2 s
+  kd_forward lr 0.005   seed 8  train acc 0.9318  val acc 0.9140  val CE 0.2499  29.1 s
+  kd_forward lr 0.01    seed 7  train acc 0.9371  val acc 0.9222  val CE 0.2374  29.1 s
+  kd_forward lr 0.01    seed 8  train acc 0.9425  val acc 0.9214  val CE 0.2257  29.1 s
+  kd_forward lr 0.02    seed 7  train acc 0.0998  val acc 0.1018  val CE 2.3141  29.0 s
+  kd_forward lr 0.02    seed 8  train acc 0.9480  val acc 0.9294  val CE 0.2129  29.1 s
+  kd_forward lr 0.04    seed 7  train acc 0.0991  val acc 0.1096  val CE nan  29.1 s
+  kd_forward lr 0.04    seed 8  train acc 0.0991  val acc 0.1096  val CE nan  29.1 s
+
+mean validation accuracy, %
+      lr       plain          kd  kd_forward
+  0.0025       88.26       90.33       90.41
+   0.005       89.88       91.44       91.48
+    0.01       91.43       92.00       92.18
+    0.02       92.36       91.12       51.56
+    0.04       92.19        9.80       10.96
+best lr for plain: 0.02 (92.36 %)
+best lr for kd: 0.01 (92.00 %)
+best lr for kd_forward: 0.01 (92.18 %)

@@ -1,0 +1,58 @@
+python 3.11.8 | torch 2.3.1+cu121 | GPU NVIDIA GeForce GTX 1060 3GB | CPU threads 8
+first 1290 steps (3 epochs), constant lr, batch 128, no warm-up; per-batch values, dead = share of fc1 ReLU units that are zero on all 5 000 validation images
+
+plain lr 0.02 seed 7
+  step     1  loss    2.3028  grad norm     0.29  val acc 0.1508  dead 0.11
+  step    10  loss    2.2671  grad norm     0.37  val acc 0.2394  dead 0.16
+  step    25  loss    1.3052  grad norm     2.20  val acc 0.4936  dead 0.14
+  step    50  loss    1.1519  grad norm     2.92  val acc 0.5220  dead 0.36
+  step   100  loss    0.6024  grad norm     1.61  val acc 0.7492  dead 0.43
+  step   200  loss    0.4251  grad norm     0.91  val acc 0.8170  dead 0.43
+  step   300  loss    0.5048  grad norm     2.30  val acc 0.8300  dead 0.36
+  step   430  loss    0.3282  grad norm     1.03  val acc 0.8430  dead 0.38
+  step   645  loss    0.4079  grad norm     1.02  val acc 0.8674  dead 0.30
+  step   860  loss    0.3982  grad norm     2.05  val acc 0.8696  dead 0.23
+  step  1290  loss    0.2198  grad norm     1.05  val acc 0.8906  dead 0.25
+  largest gradient norm 22.39 at step 30
+
+kd lr 0.02 seed 45
+  step     1  loss   16.7213  grad norm     0.51  val acc 0.1018  dead 0.09
+  step    10  loss   16.5679  grad norm     0.78  val acc 0.2642  dead 0.11
+  step    25  loss   16.6557  grad norm     2.52  val acc 0.0980  dead 0.38
+  step    50  loss   18.5197  grad norm    76.68  val acc 0.0980  dead 0.73
+  step   100  loss    4.5348  grad norm     6.02  val acc 0.6760  dead 0.30
+  step   200  loss    2.0220  grad norm     2.56  val acc 0.8146  dead 0.54
+  step   300  loss    1.1220  grad norm     2.44  val acc 0.8394  dead 0.54
+  step   430  loss    0.9216  grad norm     2.25  val acc 0.8578  dead 0.55
+  step   645  loss    0.5001  grad norm     1.76  val acc 0.8756  dead 0.55
+  step   860  loss    0.4529  grad norm     2.55  val acc 0.8892  dead 0.55
+  step  1290  loss    0.3960  grad norm     1.95  val acc 0.8988  dead 0.57
+  largest gradient norm 132.82 at step 33
+
+kd_forward lr 0.02 seed 7
+  step     1  loss   12.7031  grad norm     0.61  val acc 0.1608  dead 0.11
+  step    10  loss   12.0855  grad norm     1.40  val acc 0.2842  dead 0.16
+  step    25  loss   12.4828  grad norm     4.37  val acc 0.2020  dead 0.52
+  step    50  loss   10.0592  grad norm    10.78  val acc 0.1952  dead 0.68
+  step   100  loss    2.7079  grad norm     3.18  val acc 0.6870  dead 0.75
+  step   200  loss    1.1626  grad norm     2.27  val acc 0.8114  dead 0.66
+  step   300  loss    1.3729  grad norm     4.16  val acc 0.8342  dead 0.70
+  step   430  loss    0.8296  grad norm     3.56  val acc 0.8492  dead 0.68
+  step   645  loss    0.6708  grad norm     3.34  val acc 0.8786  dead 0.64
+  step   860  loss    0.5019  grad norm     2.41  val acc 0.8818  dead 0.68
+  step  1290  loss    0.4921  grad norm     1.69  val acc 0.8850  dead 0.68
+  largest gradient norm 247.65 at step 34
+
+kd_forward lr 0.02 seed 8
+  step     1  loss   13.0567  grad norm     0.70  val acc 0.0954  dead 0.09
+  step    10  loss   12.3595  grad norm     1.18  val acc 0.3432  dead 0.14
+  step    25  loss    8.9348  grad norm     8.11  val acc 0.4820  dead 0.29
+  step    50  loss    3.6367  grad norm     6.77  val acc 0.6426  dead 0.45
+  step   100  loss    1.7427  grad norm     2.93  val acc 0.7980  dead 0.43
+  step   200  loss    1.1875  grad norm     2.08  val acc 0.8494  dead 0.36
+  step   300  loss    0.8247  grad norm     3.15  val acc 0.8636  dead 0.38
+  step   430  loss    0.5526  grad norm     2.57  val acc 0.8908  dead 0.36
+  step   645  loss    0.5092  grad norm     1.90  val acc 0.8978  dead 0.38
+  step   860  loss    0.4780  grad norm     2.83  val acc 0.9050  dead 0.34
+  step  1290  loss    0.2398  grad norm     1.14  val acc 0.9106  dead 0.36
+  largest gradient norm 35.98 at step 19
