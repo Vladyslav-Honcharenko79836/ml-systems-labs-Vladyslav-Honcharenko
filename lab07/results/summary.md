@@ -1,0 +1,22 @@
+| pillar | metric | baseline (teacher) | global 90 % | per-layer 90 % | filters −25 % | filters −50 % | student, CE | student, KD |
+|---|---|---|---|---|---|---|---|---|
+| **data** | labelled training images | 55,000 | 55,000 | 55,000 | 55,000 | 55,000 | 55,000 | 55,000 |
+|  | image passes, own training (k) | 825 | 165 | 165 | 165 | 165 | 825 | 825 |
+|  | image passes, incl. teacher / pre-training (k) | 825 | 990 | 990 | 990 | 990 | 825 | 1,705 |
+|  | test acc with only 1,100 images, % | — | — | — | — | — | 82.29 ± 0.11 | 87.05 ± 0.37 |
+| **model** | test accuracy, % (mean ± std over seeds) | 92.73 ± 0.24 | 92.40 ± 0.07 | 90.42 ± 0.13 | 92.59 ± 0.10 | 92.30 ± 0.09 | 92.36 ± 0.12 | 92.18 ± 0.14 |
+|  | parameters | 1,044,490 | 1,044,490 | 1,044,490 | 738,794 | 463,050 | 102,482 | 102,482 |
+|  | non-zero parameters | 1,044,490 | 104,890 | 104,891 | 738,794 | 463,050 | 102,482 | 102,482 |
+|  | file, dense .pt, MB | 4.181 | 4.181 | 4.181 | 2.958 | 1.855 | 0.413 | 0.413 |
+|  | file, best sparse format, MB | 4.313 | 0.555 | 0.555 | 3.052 | 1.915 | 0.427 | 0.427 |
+| **compute** | MACs executed by dense kernels, M | 58.83 | 58.83 | 58.83 | 33.29 | 14.97 | 2.91 | 2.91 |
+|  | MACs with a non-zero weight, M | 58.83 | 18.74 | 5.88 | 33.29 | 14.97 | 2.91 | 2.91 |
+|  | CPU 1 thread, batch 1, ms | 3.783 | 3.748 | 3.683 | 2.466 | 1.410 | 0.558 | 0.561 |
+|  | CPU 8 threads, batch 1, ms | 2.163 | 2.192 | 2.154 | 1.420 | 1.055 | 0.554 | 0.542 |
+|  | ONNX Runtime 1 thread, batch 1, ms | 2.129 | 2.101 | 2.095 | 1.215 | 0.568 | 0.143 | 0.143 |
+|  | GPU, batch 1, ms | 0.831 | 0.835 | 0.837 | 0.832 | 0.886 | 0.688 | 0.690 |
+|  | GPU training time, incl. teacher / pre-training, s | 134 | 160 | 160 | 155 | 149 | 29 | 164 |
+| **energy** | GPU training energy, incl. teacher / pre-training, kJ | 14.5 | 17.2 | 17.2 | 16.7 | 15.9 | 2.6 | 17.1 |
+|  | GPU inference, batch 1, mJ/image (gross) | 32.8 | 28.7 | 29.0 | 31.8 | 37.1 | 18.6 | 19.6 |
+|  | GPU inference, batch 256, mJ/image (gross) | 5.02 | 4.98 | 4.81 | 4.40 | 2.42 | 0.86 | 0.83 |
+|  | CPU inference, upper bound 105 W × 8-thread latency, mJ/image | 227 | 230 | 226 | 149 | 111 | 58 | 57 |

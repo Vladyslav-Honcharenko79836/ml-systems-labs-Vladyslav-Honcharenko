@@ -1,0 +1,21 @@
+python 3.11.8 | torch 2.3.1+cu121 | GPU NVIDIA GeForce GTX 1060 3GB | CPU threads 8
+GPU idle (display + desktop apps, after 30 s rest): 11.1 W (counter 11.1 W)
+each measurement: 3 s warm-up, then 10 s of synchronized inference under the NVML energy counter; 3 repeats in shuffled order; gross = all GPU energy, net = gross - idle power x time
+
+model            batch       W   images/s       gross mJ/image         net mJ/image
+baseline             1    38.0      1,160      32.785 +- 6.956       23.184 +- 6.926 
+baseline           256   108.8     21,670       5.024 +- 0.060        4.510 +- 0.047 
+global_0.9           1    33.4      1,164      28.685 +- 0.410       19.115 +- 0.297 
+global_0.9         256   108.5     21,782       4.983 +- 0.061        4.471 +- 0.048 
+layer_0.9            1    33.2      1,148      28.966 +- 0.047       19.259 +- 0.084 
+layer_0.9          256   107.3     22,322       4.809 +- 0.040        4.310 +- 0.040 
+structured_0.1       1    38.3      1,146      33.362 +- 6.211       23.640 +- 6.281 
+structured_0.1     256   109.5     23,734       4.616 +- 0.034        4.146 +- 0.029 
+structured_0.25      1    36.4      1,144      31.782 +- 5.632       22.041 +- 5.770 
+structured_0.25    256   111.1     25,269       4.397 +- 0.023        3.956 +- 0.018 
+structured_0.5       1    39.5      1,063      37.129 +- 6.204       26.642 +- 6.371 
+structured_0.5     256   112.7     46,500       2.423 +- 0.020        2.183 +- 0.015 
+student_plain        1    25.3      1,350      18.600 +- 9.597       10.345 +- 9.771 
+student_plain      256   106.3    123,616       0.860 +- 0.008        0.770 +- 0.006 
+student_kd           1    27.1      1,381      19.583 +- 6.547       11.516 +- 6.647 
+student_kd         256   104.9    125,796       0.834 +- 0.010        0.745 +- 0.009 
