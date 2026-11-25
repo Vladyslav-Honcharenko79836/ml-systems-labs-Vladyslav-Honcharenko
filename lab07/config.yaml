@@ -1,0 +1,53 @@
+deterministic: true
+split_seed: 42
+seeds: [42, 43, 44]
+
+paths:
+  data_dir: data
+  ckpt_dir: data/lab07_ckpt
+
+data:
+  n_train: 55000
+  n_val: 5000
+  mean: 0.2860
+  std: 0.3530
+  batch_size: 128
+
+baseline:
+  widths: [32, 64, 128, 128]
+  hidden: 128
+  dropout: 0.5
+  epochs: 15
+  lr: 0.02
+  momentum: 0.9
+  weight_decay: 0.0005
+
+prune:
+  sparsities: [0.0, 0.25, 0.5, 0.75, 0.9, 0.95]
+  filter_fractions: [0.1, 0.25, 0.5]
+  finetune_epochs: 3
+  finetune_lr: 0.005
+
+distill:
+  widths: [16, 32, 32]
+  hidden: 56
+  epochs: 15
+  lr: 0.02
+  temperature: 4.0
+  alpha: 0.5
+  seeds: [42, 43, 44, 45, 46]
+  teacher_seed: 42
+  data_fractions: [0.02, 0.1, 0.3]
+  data_seeds: [42, 43, 44]
+
+latency:
+  warmup: 100
+  rounds: 5
+  runs: 200
+  big_batch: 256
+  threads: [1, 8]
+
+energy:
+  seconds: 10
+  big_batch: 256
+  cpu_tdp_w: 105
