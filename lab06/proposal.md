@@ -1,6 +1,6 @@
 # Individual project proposal
 
-**Student:** Vladyslav Honcharenko  **Student ID:** ____________
+**Student:** Vladyslav Honcharenko  **Student ID:** 79836
 **Course:** Introduction to Machine Learning Systems  **Date:** 22.11.2026
 
 ## Title
