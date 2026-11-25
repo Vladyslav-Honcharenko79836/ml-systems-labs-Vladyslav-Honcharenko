@@ -1,0 +1,68 @@
+python 3.11.8 | torch 2.3.1+cu121 | GPU NVIDIA GeForce GTX 1060 3GB | CPU threads 8
+fine-tune: 3 epochs, SGD lr 0.005 cosine, masks re-applied after every optimizer step; biases are never pruned
+
+seed 42: baseline test 0.9246
+  global     target 0.0   real 0.0000  nnz 1,044,490  eff MACs  58.83M  test 0.9246 -> 0.9260  [conv1 0.00 conv2 0.00 conv3 0.00 conv4 0.00 fc1 0.00 fc2 0.00]
+  global     target 0.25  real 0.2500  nnz   783,490  eff MACs  52.33M  test 0.9238 -> 0.9258  [conv1 0.00 conv2 0.07 conv3 0.10 conv4 0.13 fc1 0.29 fc2 0.02]
+  global     target 0.5   real 0.5000  nnz   522,490  eff MACs  45.58M  test 0.9250 -> 0.9252  [conv1 0.01 conv2 0.13 conv3 0.20 conv4 0.27 fc1 0.58 fc2 0.04]
+  global     target 0.75  real 0.7500  nnz   261,490  eff MACs  34.81M  test 0.9246 -> 0.9249  [conv1 0.04 conv2 0.25 conv3 0.37 conv4 0.50 fc1 0.84 fc2 0.07]
+  global     target 0.9   real 0.9000  nnz   104,890  eff MACs  18.74M  test 0.9135 -> 0.9233  [conv1 0.06 conv2 0.44 conv3 0.64 conv4 0.82 fc1 0.95 fc2 0.13]
+  global     target 0.95  real 0.9500  nnz    52,690  eff MACs  11.31M  test 0.8999 -> 0.9169  [conv1 0.08 conv2 0.58 conv3 0.82 conv4 0.91 fc1 0.98 fc2 0.16]
+  layer      target 0.25  real 0.2500  nnz   783,490  eff MACs  44.12M  test 0.9244 -> 0.9257  [conv1 0.25 conv2 0.25 conv3 0.25 conv4 0.25 fc1 0.25 fc2 0.25]
+  layer      target 0.5   real 0.5000  nnz   522,490  eff MACs  29.42M  test 0.9122 -> 0.9256  [conv1 0.50 conv2 0.50 conv3 0.50 conv4 0.50 fc1 0.50 fc2 0.50]
+  layer      target 0.75  real 0.7500  nnz   261,490  eff MACs  14.71M  test 0.8393 -> 0.9209  [conv1 0.75 conv2 0.75 conv3 0.75 conv4 0.75 fc1 0.75 fc2 0.75]
+  layer      target 0.9   real 0.9000  nnz   104,891  eff MACs   5.88M  test 0.4267 -> 0.9056  [conv1 0.90 conv2 0.90 conv3 0.90 conv4 0.90 fc1 0.90 fc2 0.90]
+  layer      target 0.95  real 0.9500  nnz    52,690  eff MACs   2.94M  test 0.2277 -> 0.8844  [conv1 0.95 conv2 0.95 conv3 0.95 conv4 0.95 fc1 0.95 fc2 0.95]
+  structured target 0.1   widths (29, 58, 115, 115)  params   917,469  MACs  47.89M  test 0.9240 -> 0.9258  max|masked-removed logits| 3.8e-06
+  structured target 0.25  widths (24, 48, 96, 96)  params   738,794  MACs  33.29M  test 0.9130 -> 0.9247  max|masked-removed logits| 7.6e-06
+  structured target 0.5   widths (16, 32, 64, 64)  params   463,050  MACs  14.97M  test 0.9088 -> 0.9223  max|masked-removed logits| 3.8e-06
+
+seed 43: baseline test 0.9281
+  global     target 0.0   real 0.0000  nnz 1,044,490  eff MACs  58.83M  test 0.9281 -> 0.9281  [conv1 0.00 conv2 0.00 conv3 0.00 conv4 0.00 fc1 0.00 fc2 0.00]
+  global     target 0.25  real 0.2500  nnz   783,490  eff MACs  52.29M  test 0.9279 -> 0.9282  [conv1 0.01 conv2 0.07 conv3 0.10 conv4 0.14 fc1 0.29 fc2 0.02]
+  global     target 0.5   real 0.5000  nnz   522,490  eff MACs  45.41M  test 0.9278 -> 0.9282  [conv1 0.02 conv2 0.14 conv3 0.20 conv4 0.28 fc1 0.58 fc2 0.04]
+  global     target 0.75  real 0.7500  nnz   261,490  eff MACs  34.60M  test 0.9268 -> 0.9277  [conv1 0.04 conv2 0.25 conv3 0.37 conv4 0.51 fc1 0.84 fc2 0.08]
+  global     target 0.9   real 0.9000  nnz   104,890  eff MACs  19.22M  test 0.9188 -> 0.9246  [conv1 0.07 conv2 0.42 conv3 0.64 conv4 0.81 fc1 0.95 fc2 0.14]
+  global     target 0.95  real 0.9500  nnz    52,690  eff MACs  11.88M  test 0.8913 -> 0.9179  [conv1 0.09 conv2 0.55 conv3 0.81 conv4 0.91 fc1 0.98 fc2 0.18]
+  layer      target 0.25  real 0.2500  nnz   783,490  eff MACs  44.12M  test 0.9262 -> 0.9281  [conv1 0.25 conv2 0.25 conv3 0.25 conv4 0.25 fc1 0.25 fc2 0.25]
+  layer      target 0.5   real 0.5000  nnz   522,490  eff MACs  29.42M  test 0.9203 -> 0.9270  [conv1 0.50 conv2 0.50 conv3 0.50 conv4 0.50 fc1 0.50 fc2 0.50]
+  layer      target 0.75  real 0.7500  nnz   261,490  eff MACs  14.71M  test 0.8986 -> 0.9227  [conv1 0.75 conv2 0.75 conv3 0.75 conv4 0.75 fc1 0.75 fc2 0.75]
+  layer      target 0.9   real 0.9000  nnz   104,891  eff MACs   5.88M  test 0.4968 -> 0.9032  [conv1 0.90 conv2 0.90 conv3 0.90 conv4 0.90 fc1 0.90 fc2 0.90]
+  layer      target 0.95  real 0.9500  nnz    52,690  eff MACs   2.94M  test 0.2420 -> 0.8699  [conv1 0.95 conv2 0.95 conv3 0.95 conv4 0.95 fc1 0.95 fc2 0.95]
+  structured target 0.1   widths (29, 58, 115, 115)  params   917,469  MACs  47.89M  test 0.9224 -> 0.9277  max|masked-removed logits| 7.6e-06
+  structured target 0.25  widths (24, 48, 96, 96)  params   738,794  MACs  33.29M  test 0.9112 -> 0.9262  max|masked-removed logits| 7.6e-06
+  structured target 0.5   widths (16, 32, 64, 64)  params   463,050  MACs  14.97M  test 0.8837 -> 0.9241  max|masked-removed logits| 3.8e-06
+
+seed 44: baseline test 0.9292
+  global     target 0.0   real 0.0000  nnz 1,044,490  eff MACs  58.83M  test 0.9292 -> 0.9294  [conv1 0.00 conv2 0.00 conv3 0.00 conv4 0.00 fc1 0.00 fc2 0.00]
+  global     target 0.25  real 0.2500  nnz   783,490  eff MACs  52.33M  test 0.9289 -> 0.9294  [conv1 0.00 conv2 0.06 conv3 0.10 conv4 0.14 fc1 0.29 fc2 0.03]
+  global     target 0.5   real 0.5000  nnz   522,490  eff MACs  45.41M  test 0.9285 -> 0.9302  [conv1 0.00 conv2 0.14 conv3 0.20 conv4 0.28 fc1 0.58 fc2 0.04]
+  global     target 0.75  real 0.7500  nnz   261,490  eff MACs  34.51M  test 0.9268 -> 0.9292  [conv1 0.02 conv2 0.25 conv3 0.37 conv4 0.51 fc1 0.84 fc2 0.08]
+  global     target 0.9   real 0.9000  nnz   104,890  eff MACs  19.19M  test 0.9166 -> 0.9242  [conv1 0.05 conv2 0.43 conv3 0.64 conv4 0.81 fc1 0.95 fc2 0.14]
+  global     target 0.95  real 0.9500  nnz    52,690  eff MACs  11.91M  test 0.8789 -> 0.9169  [conv1 0.06 conv2 0.56 conv3 0.81 conv4 0.91 fc1 0.98 fc2 0.18]
+  layer      target 0.25  real 0.2500  nnz   783,490  eff MACs  44.12M  test 0.9282 -> 0.9297  [conv1 0.25 conv2 0.25 conv3 0.25 conv4 0.25 fc1 0.25 fc2 0.25]
+  layer      target 0.5   real 0.5000  nnz   522,490  eff MACs  29.42M  test 0.9241 -> 0.9280  [conv1 0.50 conv2 0.50 conv3 0.50 conv4 0.50 fc1 0.50 fc2 0.50]
+  layer      target 0.75  real 0.7500  nnz   261,490  eff MACs  14.71M  test 0.8718 -> 0.9214  [conv1 0.75 conv2 0.75 conv3 0.75 conv4 0.75 fc1 0.75 fc2 0.75]
+  layer      target 0.9   real 0.9000  nnz   104,891  eff MACs   5.88M  test 0.3457 -> 0.9037  [conv1 0.90 conv2 0.90 conv3 0.90 conv4 0.90 fc1 0.90 fc2 0.90]
+  layer      target 0.95  real 0.9500  nnz    52,690  eff MACs   2.94M  test 0.1320 -> 0.8731  [conv1 0.95 conv2 0.95 conv3 0.95 conv4 0.95 fc1 0.95 fc2 0.95]
+  structured target 0.1   widths (29, 58, 115, 115)  params   917,469  MACs  47.89M  test 0.9281 -> 0.9292  max|masked-removed logits| 3.8e-06
+  structured target 0.25  widths (24, 48, 96, 96)  params   738,794  MACs  33.29M  test 0.9138 -> 0.9267  max|masked-removed logits| 7.6e-06
+  structured target 0.5   widths (16, 32, 64, 64)  params   463,050  MACs  14.97M  test 0.8929 -> 0.9227  max|masked-removed logits| 3.8e-06
+
+mean +- std over seeds [42, 43, 44], test accuracy in %
+kind        target nnz params params -% eff MACs M      before ft       after ft   change vs base
+global         0.0  1,044,490       0.0      58.83   92.73 +- 0.24   92.78 +- 0.17    +0.05 +- 0.08
+global        0.25    783,490      25.0      52.32   92.69 +- 0.27   92.78 +- 0.18    +0.05 +- 0.06
+global         0.5    522,490      50.0      45.47   92.71 +- 0.19   92.79 +- 0.25    +0.06 +- 0.05
+global        0.75    261,490      75.0      34.64   92.61 +- 0.13   92.73 +- 0.22    -0.00 +- 0.04
+global         0.9    104,890      90.0      19.05   91.63 +- 0.27   92.40 +- 0.07    -0.33 +- 0.19
+global        0.95     52,690      95.0      11.70   89.00 +- 1.06   91.72 +- 0.06    -1.01 +- 0.23
+layer          0.0  1,044,490       0.0      58.83   92.73 +- 0.24   92.78 +- 0.17    +0.05 +- 0.08
+layer         0.25    783,490      25.0      44.12   92.63 +- 0.19   92.78 +- 0.20    +0.05 +- 0.06
+layer          0.5    522,490      50.0      29.42   91.89 +- 0.61   92.69 +- 0.12    -0.04 +- 0.12
+layer         0.75    261,490      75.0      14.71   86.99 +- 2.97   92.17 +- 0.09    -0.56 +- 0.21
+layer          0.9    104,891      90.0       5.88   42.31 +- 7.56   90.42 +- 0.13    -2.31 +- 0.36
+layer         0.95     52,690      95.0       2.94   20.06 +- 5.98   87.58 +- 0.76    -5.15 +- 0.98
+structured     0.1    917,469      12.2      47.89   92.48 +- 0.29   92.76 +- 0.17    +0.03 +- 0.08
+structured    0.25    738,794      29.3      33.29   91.27 +- 0.13   92.59 +- 0.10    -0.14 +- 0.14
+structured     0.5    463,050      55.7      14.97   89.51 +- 1.27   92.30 +- 0.09    -0.43 +- 0.21
